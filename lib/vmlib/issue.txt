@@ -1,0 +1,13 @@
+In paragraphs 10 and 11, the following text is present.
+
+> Identifiers MUST be comprised of only ASCII alphanumerics and dash [0-9A-Za-z-].
+
+However, it is unclear if an identifier can begin or end with a dash, or have multiple dashes in sequence. If that is allowed, then in theory, we could have identifiers like the following.
+
+    1.0.0--+-
+    1.0.0-----+----
+    1.0.0--alpha--.-1-
+    1.0.0--beta-.-2-+--build-256--
+    1.0.0+-256
+
+My understanding of the text indicates that this is not disallowed, but in my opinion, we should have the text
