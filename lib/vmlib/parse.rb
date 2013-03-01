@@ -15,7 +15,7 @@ module VMLib
     # Leading zeroes will be stripped in any numeric field
 
     # Regular expression format to understand the release and build formats
-    SPECIAL_REGEX = /^[0-9A-Za-z]([0-9A-Za-z-]*[0-9A-Za-z])?(\.[0-9A-Za-z]([0-9A-Za-z-]*[0-9A-Za-z])?)*/
+    SPECIAL_REGEX = /^[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*/
 
     # Regular expression to understand the version format
     # Acceptable formats:
@@ -54,7 +54,7 @@ module VMLib
             @reltype = :rel_type_custom
           end
 
-        # Alpha version 1.0.0-a.1, 1.0.0-a.2, etc.
+        # Alpha version 1.0.0-a.1, 1.0.0-alpha.2, etc.
         when /^(a|alpha)$/
           if @relcustom.length == 2 && @relcustom[1].match(/^\d+$/)
             @reltype = :rel_type_alpha
@@ -63,7 +63,7 @@ module VMLib
             @reltype = :rel_type_custom
           end
 
-        # Beta version 1.0.0-b.1, 1.0.0-b.2, etc.
+        # Beta version 1.0.0-b.1, 1.0.0-beta.2, etc.
         when /^(b|beta)$/
           if @relcustom.length == 2 && @relcustom[1].match(/^\d+$/)
             @reltype = :rel_type_beta
