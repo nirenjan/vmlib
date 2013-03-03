@@ -1,6 +1,8 @@
 Version Manager Library
 =======================
 
+**Do not pull from this repository, the history can change rapidly**
+
 The Version manager library (VMLib) is a generic library to handle
 semantic versioning as specified at <http://semver.org>. In addition to
 complying with semantic versioning v2.0.0-rc.1, it adds additional API

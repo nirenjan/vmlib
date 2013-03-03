@@ -6,6 +6,7 @@
 ###############################################################################
 
 require 'version/base'
+require 'version/bump'
 require 'version/errors'
 require 'version/parse'
 require 'version/format'
