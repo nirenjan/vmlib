@@ -5,7 +5,7 @@
 # All rights reserved.
 ###############################################################################
 
-require 'vmlib/base'
-require 'vmlib/errors'
-require 'vmlib/parse'
-require 'vmlib/format'
+require 'version/base'
+require 'version/errors'
+require 'version/parse'
+require 'version/format'
