@@ -43,6 +43,68 @@ module VMLib
       @name = nm
     end
 
+    # Accessor functions for major
+    attr_reader :major
+
+    def major=(m)
+      m.kind_of? Integer or
+        raise Errors::AssignError, "invalid major version #{m.inspect}"
+
+      @major = m
+    end
+
+    # Accessor functions for minor
+    attr_reader :minor
+
+    def minor=(m)
+      m.kind_of? Integer or
+        raise Errors::AssignError, "invalid minor version #{m.inspect}"
+
+      @minor = m
+    end
+
+    # Accessor functions for patch
+    attr_reader :patch
+
+    def patch=(p)
+      p.kind_of? Integer or
+        raise Errors::AssignError, "invalid patch version #{p.inspect}"
+
+      @patch = p
+    end
+
+    # Accessor functions for prerelease
+    def prerelease
+      format '%r'
+    end
+
+    def prerelease=(r)
+      r.kind_of? String or
+        raise Errors::ParseError, "invalid prerelease #{r.inspect}"
+
+      m = parse_release(r)
+      r = r.sub(SPECIAL_REGEX, '') if m
+      warn "ignoring additional data #{r.inspect}" unless r.empty?
+
+      true
+    end
+
+    # Accessor functions for build
+    def build
+      format '%b'
+    end
+
+    def build=(b)
+      b.kind_of? String or
+        raise Errors::ParseError, "invalid build #{b.inspect}"
+
+      m = parse_build(b)
+      b = b.sub(SPECIAL_REGEX, '') if m
+      warn "ignoring additional data #{b.inspect}" unless b.empty?
+
+      true
+    end
+
   end
 
 

@@ -12,26 +12,27 @@ module VMLib
   # This is the primary version number class
   class Version
 
-    def reset
-      @name = ''
-      @major = 0
+    def bump_major
+      @major = @major + 1
       @minor = 0
       @patch = 0
-      @reltype = :rel_type_dev
-      @devnum = 0
-      @alphanum = 0
-      @betanum = 0
-      @rcnum = 0
-      @relcustom = []
-      @buildtype = :bld_type_final
-      @buildcustom = []
 
       true
     end
 
-    def initialize
-      reset
+    def bump_minor
+      @minor = @minor + 1
+      @patch = 0
+
+      true
     end
+
+    def bump_patch
+      @patch = @patch + 1
+
+      true
+    end
+
   end
 
 
