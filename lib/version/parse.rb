@@ -11,20 +11,38 @@ module VMLib
 
   class Version
 
+    # The parse functions are all marked as private
     private
-    # Leading zeroes will be stripped in any numeric field
 
-    # Regular expression format to understand the release and build formats
+    # Regular expression format to understand the release and build formats.
+    #
+    # Acceptable formats:
+    #     alpha.1.4
+    #     beta.1.4
+    #     6.2.8
+    #     1
+    #     build-256.2013-01-04T16-40Z
+    #
+    # These fields consist of dot-separated identifiers, and these identifiers
+    # may contain only alphanumeric characters and hyphens.
+    #
+    # Fields consisting of only digits will be interpreted as numeric and
+    # leading zeroes will be stripped.
     SPECIAL_REGEX = /^[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*/
 
-    # Regular expression to understand the version format
+    # Regular expression to understand the version format.
+    #
     # Acceptable formats:
     #     1.078.2
     #     v1.30.4908
     #     version 2.4.875
+    #
+    # Leading zeroes will be stripped in any numeric field, therefore, the
+    # version 1.078.2 would be treated the same as 1.78.2
     VER_REGEX = /^(?:v|version )?(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/
 
-    # Regular expression format to retrieve the name
+    # Regular expression format to retrieve the name. Names may consist of
+    # any combination of any alphanumeric character, underscores and hyphens.
     NAME_REGEX = /^(?<name>[0-9A-Za-z_-]+)\s+/
 
     def convert_to_integer(array)
