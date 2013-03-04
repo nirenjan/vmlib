@@ -9,9 +9,9 @@
 
 module VMLib
 
-  # This is the primary version number class
   class Version
 
+    private
     # Leading zeroes will be stripped in any numeric field
 
     # Regular expression format to understand the release and build formats
@@ -89,7 +89,13 @@ module VMLib
         @relcustom = [] unless @reltype == :rel_type_custom
         convert_to_integer(@relcustom)
       else # if !match
-        raise Errors::ParseError, "unrecognized prerelease '#{nv}'"
+        # It may be an empty string, so set the reltype to final in that case
+        if str.empty?
+          match = nil
+          @reltype = :rel_type_final
+        else
+          raise Errors::ParseError, "unrecognized prerelease '#{str}'"
+        end
       end
 
       return match
@@ -108,7 +114,13 @@ module VMLib
         @buildcustom = [] unless @buildtype == :bld_type_custom
         convert_to_integer(@buildcustom)
       else # if !match
-        raise Errors::ParseError, "unrecognized build '#{str}'"
+        # It may be an empty string, so set the buildtype to final in that case
+        if str.empty?
+          match = nil
+          @buildtype = :bld_type_final
+        else
+          raise Errors::ParseError, "unrecognized build '#{str}'"
+        end
       end
 
       return match
