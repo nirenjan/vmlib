@@ -37,6 +37,9 @@ module VMLib
     class AssignError < VMLibError
     end
 
+    # Thrown if the API receives invalid parameters
+    class ParameterError < VMLibError
+    end
   end
 
 
