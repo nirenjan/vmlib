@@ -62,6 +62,36 @@ module VMLib
       cmp = (array1[len...array1.length] <=> array2[len...array2.length])
       return cmp
     end
+    private :compare_arrays
+
+    # Compare two version structures
+    def <=> (other)
+      # Check major version
+      cmp = (@major <=> other.major)
+      return cmp unless cmp == 0
+
+      # Check minor version
+      cmp = (@minor <=> other.minor)
+      return cmp unless cmp == 0
+
+      # Check patch version
+      cmp = (@patch <=> other.patch)
+      return cmp unless cmp == 0
+
+      # Check prerelease arrays
+      myown_pre = self.prerelease.split('.')
+      other_pre = other.prerelease.split('.')
+      cmp = compare_arrays(myown_pre, other_pre)
+      return cmp unless cmp == 0
+
+      # Check build arrays
+      myown_bld = self.build.split('.')
+      other_bld = other.build.split('.')
+      cmp = compare_arrays(myown_bld, other_bld)
+      return cmp unless cmp == 0
+
+      return 0
+    end
 
   end
 

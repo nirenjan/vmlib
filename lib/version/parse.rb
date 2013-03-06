@@ -103,8 +103,7 @@ module VMLib
           @reltype = :rel_type_custom
         end
 
-        # Done parsing, clear the relcustom array if it's not a custom type
-        @relcustom = [] unless @reltype == :rel_type_custom
+        # Done parsing, convert the array elements to integers (if applicable)
         convert_to_integer(@relcustom)
       else # if !match
         # It may be an empty string, so set the reltype to final in that case
@@ -128,8 +127,7 @@ module VMLib
         @buildcustom = match[0].split '.'
         @buildtype = :bld_type_custom
 
-        # Done parsing, clear the array if it's not a custom type
-        @buildcustom = [] unless @buildtype == :bld_type_custom
+        # Done parsing, convert the array elements to integers (if applicable)
         convert_to_integer(@buildcustom)
       else # if !match
         # It may be an empty string, so set the buildtype to final in that case

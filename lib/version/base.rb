@@ -41,6 +41,38 @@ module VMLib
       set_build build
     end
     
+    # Inspect the version object
+    def inspect
+      str = "#<#{self.class}:"
+      str += "0x%016x" % (self.object_id * 2)
+      str += " @name='#{@name}'"
+      str += " @major=#{@major}"
+      str += " @minor=#{@minor}"
+      str += " @patch=#{@patch}"
+
+      case @reltype
+      when :rel_type_dev
+        str += " @devnum=#{@devnum}"
+      when :rel_type_alpha
+        str += " @alphanum=#{@alphanum}"
+      when :rel_type_beta
+        str += " @betanum=#{@betanum}"
+      when :rel_type_rc
+        str += " @rcnum=#{@rcnum}"
+      when :rel_type_custom
+        str += " @prerelease=#{@relcustom.inspect}"
+      end
+
+      case @buildtype
+      when :bld_type_custom
+        str += " @build=#{@buildcustom.inspect}"
+      end
+
+      str += ">"
+
+      str
+    end
+
     ###########################################################################
     # Accessor functions for name
     ###########################################################################
