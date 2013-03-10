@@ -80,13 +80,17 @@ module VMLib
 
       # Check prerelease arrays
       myown_pre = self.prerelease.split('.')
+      convert_to_integer(myown_pre)
       other_pre = other.prerelease.split('.')
+      convert_to_integer(other_pre)
       cmp = compare_arrays(myown_pre, other_pre)
       return cmp unless cmp == 0
 
       # Check build arrays
       myown_bld = self.build.split('.')
+      convert_to_integer(myown_bld)
       other_bld = other.build.split('.')
+      convert_to_integer(other_bld)
       cmp = compare_arrays(myown_bld, other_bld)
       return cmp unless cmp == 0
 
