@@ -144,56 +144,59 @@ module VMLib
       return match
     end
 
-    def parse(nv)
+    # With the exception of the root parse function
+    public
+
+    def parse(ver)
       # Match the name
-      match = NAME_REGEX.match(nv)
+      match = NAME_REGEX.match(ver)
       if match
         @name = match[:name]
-        nv = nv.sub(NAME_REGEX, '')
+        ver = ver.sub(NAME_REGEX, '')
       else
-        raise Errors::ParseError, "unrecognized name format '#{nv}'"
+        raise Errors::ParseError, "unrecognized name format '#{ver}'"
       end
 
       # Match the major, minor and patch versions
-      match = VER_REGEX.match(nv)
+      match = VER_REGEX.match(ver)
       if match
         @major = match[:major].to_i
         @minor = match[:minor].to_i
         @patch = match[:patch].to_i
-        nv = nv.sub(VER_REGEX, '')
+        ver = ver.sub(VER_REGEX, '')
       else
-        raise Errors::ParseError, "unrecognized version format '#{nv}'"
+        raise Errors::ParseError, "unrecognized version format '#{ver}'"
       end
 
       # See if we have a prerelease version (begins with a -)
-      if nv =~ /^-/
-        nv = nv.sub(/^-/, '')
+      if ver =~ /^-/
+        ver = ver.sub(/^-/, '')
 
-        match = parse_release(nv)
+        match = parse_release(ver)
         if match
           # Delete the matched data
-          nv = nv.sub(SPECIAL_REGEX, '')
+          ver = ver.sub(SPECIAL_REGEX, '')
         end
-      else # if nv !~ /^-/
+      else # if ver !~ /^-/
         @reltype = :rel_type_final
       end
 
       # See if we have a build version (begins with a +)
-      if nv =~ /^\+/
-        nv = nv.sub(/^\+/, '')
+      if ver =~ /^\+/
+        ver = ver.sub(/^\+/, '')
 
-        match = parse_build(nv)
+        match = parse_build(ver)
         if match
           # Delete the matched data
-          nv = nv.sub(SPECIAL_REGEX, '')
+          ver = ver.sub(SPECIAL_REGEX, '')
         end
-      else # if nv !~ /^\+/
+      else # if ver !~ /^\+/
         @buildtype = :bld_type_final
       end
 
-      # By now, nv should be empty. Raise an error if this is not the case
-      unless nv.empty?
-        raise Errors::ParseError, "unrecognized version format '#{nv}'"
+      # By now, ver should be empty. Raise an error if this is not the case
+      unless ver.empty?
+        raise Errors::ParseError, "unrecognized version format '#{ver}'"
       end
 
       true

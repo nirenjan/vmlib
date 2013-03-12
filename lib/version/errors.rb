@@ -40,6 +40,14 @@ module VMLib
     # Thrown if the API receives invalid parameters
     class ParameterError < VMLibError
     end
+
+    # Thrown if there's an issue with the path for the version file
+    class PathError < VMLibError
+    end
+
+    # Thrown if there's an issue with the version file itself
+    class VersionFileError < VMLibError
+    end
   end
 
 

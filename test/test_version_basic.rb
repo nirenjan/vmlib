@@ -26,10 +26,6 @@ module VMLib
       def test_custom_version
         version = VMLib::Version.new('SomeProject', 1, 1, 0, 'a.1', 'b.20')
         assert_equal 'SomeProject 1.1.0-a.1+b.20', version.to_s
-
-        # Verify calling with parameters
-        version = VMLib::Version.new(:major = 2, :prerelease = '')
-        assert_equal '2.0.0', version.to_s
       end
 
 

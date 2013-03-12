@@ -11,3 +11,5 @@ require 'version/errors'
 require 'version/compare'
 require 'version/parse'
 require 'version/format'
+
+require 'version/file'
