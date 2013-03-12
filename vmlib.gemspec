@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.description             = "A gem to handle software versions"
   s.required_ruby_version   = "~> 1.9.3"
   s.authors                 = ["Nirenjan Krishnan"]
-  s.email                   = 'nirenjan@nirenjan.org'
+  s.email                   = 'nirenjan@gmail.com'
   #s.files                   = ["lib/vmlib.rb"]
   s.license                 = "MIT"
   s.homepage                = 'http://rubygems.org/gems/vmlib'
