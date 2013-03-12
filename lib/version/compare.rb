@@ -84,6 +84,10 @@ module VMLib
       other_pre = other.prerelease.split('.')
       convert_to_integer(other_pre)
       cmp = compare_arrays(myown_pre, other_pre)
+      
+      # Make sure that the prerelease is compared correctly
+      cmp = 1 if cmp == -1 and myown_pre.length == 0
+      cmp = -1 if cmp == 1 and other_pre.length == 0
       return cmp unless cmp == 0
 
       # Check build arrays
