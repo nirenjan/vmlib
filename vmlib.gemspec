@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'vmlib'
-  s.version     = '0.1.0-1'
-  s.date        = '2013-02-28'
+  s.version     = '0.1.0'
+  s.date        = '2013-03-12'
   s.summary     = "Version Manager Library"
   s.description = "A gem to handle software versions"
   s.authors     = ["Nirenjan Krishnan"]
