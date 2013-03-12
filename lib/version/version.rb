@@ -1,20 +1,12 @@
 ###############################################################################
-# VMLib library file
+# VMLib version information
 ###############################################################################
 # Copyright (C) 2013 Nirenjan Krishnan
 # All rights reserved.
 ###############################################################################
 
-# Version processing
-require 'version/base'
-require 'version/bump'
-require 'version/errors'
-require 'version/compare'
-require 'version/parse'
-require 'version/format'
+module VMLib
 
-# File processing
-require 'version/file'
+  VERSION = "0.1.0" #:nodoc:
 
-# Gem version
-require 'version/version'
+end
