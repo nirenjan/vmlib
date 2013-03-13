@@ -18,3 +18,6 @@ require 'vmlib/file'
 
 # Gem version
 require 'vmlib/version'
+
+# Source file processing
+require 'vmlib/source'

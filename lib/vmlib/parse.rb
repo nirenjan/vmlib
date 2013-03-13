@@ -148,13 +148,21 @@ module VMLib
     public
 
     def parse(ver)
+      unless ver.kind_of? String
+        raise Errors::ParameterError, "expected a string to be parsed"
+      end
+
+      # Chop off any trailing newlines
+      ver.chomp!
+
       # Match the name
       match = NAME_REGEX.match(ver)
       if match
         @name = match[:name]
         ver = ver.sub(NAME_REGEX, '')
-      else
-        raise Errors::ParseError, "unrecognized name format '#{ver}'"
+      #else
+      # Sometimes we may not get a name to be parsed. If that's the case
+      # then simply ignore it.
       end
 
       # Match the major, minor and patch versions

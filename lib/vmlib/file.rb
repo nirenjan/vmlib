@@ -70,7 +70,7 @@ module VMLib
 
       if ::File.writable?(path)
         # Write
-        ::File.write(path, version.to_s)
+        ::File.write(path, version.to_s + "\n")
       else
         raise Errors::VersionFileError, "unable to write #{path}"
       end
@@ -95,7 +95,7 @@ module VMLib
 
       ::File.open(path, "w") do |file|
         version = Version.new(name)
-        file.write version.to_s
+        file.write version.to_s + "\n"
       end
 
     end
