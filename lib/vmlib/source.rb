@@ -56,7 +56,6 @@ module VMLib
 
     # Update all the source files containing the version
     def update
-
       @files.each {|f| update_file(f) }
     end
 
