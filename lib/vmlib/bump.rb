@@ -36,6 +36,57 @@ module VMLib
       true
     end
 
+    # Bump the prerelease version by 1
+    def bump_prerelease
+      case @reltype
+      when :rel_type_dev
+        @devnum += 1
+      when :rel_type_alpha
+        @alphanum += 1
+      when :rel_type_beta
+        @betanum += 1
+      when :rel_type_rc
+        @rcnum += 1
+      when :rel_type_final
+        raise Errors::BumpError, "cannot bump prerelease for a final version"
+      when :rel_type_custom
+        lastfield = @relcustom.pop
+        if lastfield.kind_of? Integer
+          @relcustom.push (lastfield + 1)
+        else
+          @relcustom.push lastfield
+          raise Errors::BumpError, "cannot bump a non-numeric prerelease field"
+        end
+      end
+    end
+
+    # Bump the prerelease type
+    def bump_release_type
+      case @reltype
+      when :rel_type_dev # development -> alpha
+        @reltype = :rel_type_alpha
+        @alphanum = 1
+
+      when :rel_type_alpha # alpha -> beta
+        @reltype = :rel_type_beta
+        @betanum = 1
+
+      when :rel_type_beta # beta -> rc
+        @reltype = :rel_type_rc
+        @rcnum = 1
+
+      when :rel_type_rc # rc -> final
+        @reltype = :rel_type_final
+
+      when :rel_type_final # ERROR!
+        raise Errors::BumpError, "cannot bump from final version"
+
+      when :rel_type_custom # ERROR!
+        raise Errors::BumpError, "cannot bump from custom prerelease"
+
+      end
+    end
+
   end
 
 
