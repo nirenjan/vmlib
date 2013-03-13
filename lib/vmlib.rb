@@ -6,15 +6,15 @@
 ###############################################################################
 
 # Version processing
-require 'version/base'
-require 'version/bump'
-require 'version/errors'
-require 'version/compare'
-require 'version/parse'
-require 'version/format'
+require 'vmlib/base'
+require 'vmlib/bump'
+require 'vmlib/errors'
+require 'vmlib/compare'
+require 'vmlib/parse'
+require 'vmlib/format'
 
 # File processing
-require 'version/file'
+require 'vmlib/file'
 
 # Gem version
-require 'version/version'
+require 'vmlib/version'
