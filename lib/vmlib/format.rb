@@ -9,7 +9,6 @@
 
 module VMLib
 
-  # This is the primary version number class
   class Version
 
     # Default tag format for version control systems
@@ -24,7 +23,11 @@ module VMLib
     #        %r - prerelease
     #        %b - build number
     def format(fstr)
-      fstr = fstr.gsub('%n', @name.to_s + ' ')
+      if @name.empty?
+        fstr = fstr.gsub('%n', '')
+      else
+        fstr = fstr.gsub('%n', @name.to_s + ' ')
+      end
 
       # Match the major version
       match = /%(\d*)M/.match(fstr)
@@ -64,7 +67,7 @@ module VMLib
       else
         fstr = case @buildtype
           when :bld_type_custom
-            fstr.gsub('%b', '-' + @buildcustom.join('.'))
+            fstr.gsub('%b', '+' + @buildcustom.join('.'))
           else
             fstr.gsub('%b', '')
           end

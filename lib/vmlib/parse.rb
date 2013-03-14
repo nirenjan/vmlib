@@ -9,22 +9,40 @@
 
 module VMLib
 
-  # This is the primary version number class
   class Version
 
-    # Leading zeroes will be stripped in any numeric field
+    # The parse functions are all marked as private
+    private
 
-    # Regular expression format to understand the release and build formats
-    SPECIAL_REGEX = /^[0-9A-Za-z]([0-9A-Za-z-]*[0-9A-Za-z])?(\.[0-9A-Za-z]([0-9A-Za-z-]*[0-9A-Za-z])?)*/
+    # Regular expression format to understand the release and build formats.
+    #
+    # Acceptable formats:
+    #     alpha.1.4
+    #     beta.1.4
+    #     6.2.8
+    #     1
+    #     build-256.2013-01-04T16-40Z
+    #
+    # These fields consist of dot-separated identifiers, and these identifiers
+    # may contain only alphanumeric characters and hyphens.
+    #
+    # Fields consisting of only digits will be interpreted as numeric and
+    # leading zeroes will be stripped.
+    SPECIAL_REGEX = /^[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*/
 
-    # Regular expression to understand the version format
+    # Regular expression to understand the version format.
+    #
     # Acceptable formats:
     #     1.078.2
     #     v1.30.4908
     #     version 2.4.875
+    #
+    # Leading zeroes will be stripped in any numeric field, therefore, the
+    # version 1.078.2 would be treated the same as 1.78.2
     VER_REGEX = /^(?:v|version )?(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/
 
-    # Regular expression format to retrieve the name
+    # Regular expression format to retrieve the name. Names may consist of
+    # any combination of any alphanumeric character, underscores and hyphens.
     NAME_REGEX = /^(?<name>[0-9A-Za-z_-]+)\s+/
 
     def convert_to_integer(array)
@@ -54,7 +72,7 @@ module VMLib
             @reltype = :rel_type_custom
           end
 
-        # Alpha version 1.0.0-a.1, 1.0.0-a.2, etc.
+        # Alpha version 1.0.0-a.1, 1.0.0-alpha.2, etc.
         when /^(a|alpha)$/
           if @relcustom.length == 2 && @relcustom[1].match(/^\d+$/)
             @reltype = :rel_type_alpha
@@ -63,7 +81,7 @@ module VMLib
             @reltype = :rel_type_custom
           end
 
-        # Beta version 1.0.0-b.1, 1.0.0-b.2, etc.
+        # Beta version 1.0.0-b.1, 1.0.0-beta.2, etc.
         when /^(b|beta)$/
           if @relcustom.length == 2 && @relcustom[1].match(/^\d+$/)
             @reltype = :rel_type_beta
@@ -89,7 +107,13 @@ module VMLib
         @relcustom = [] unless @reltype == :rel_type_custom
         convert_to_integer(@relcustom)
       else # if !match
-        raise Errors::ParseError, "unrecognized prerelease '#{nv}'"
+        # It may be an empty string, so set the reltype to final in that case
+        if str.empty?
+          match = nil
+          @reltype = :rel_type_final
+        else
+          raise Errors::ParseError, "unrecognized prerelease '#{str}'"
+        end
       end
 
       return match
@@ -108,62 +132,79 @@ module VMLib
         @buildcustom = [] unless @buildtype == :bld_type_custom
         convert_to_integer(@buildcustom)
       else # if !match
-        raise Errors::ParseError, "unrecognized build '#{str}'"
+        # It may be an empty string, so set the buildtype to final in that case
+        if str.empty?
+          match = nil
+          @buildtype = :bld_type_final
+        else
+          raise Errors::ParseError, "unrecognized build '#{str}'"
+        end
       end
 
       return match
     end
 
-    def parse(nv)
+    # With the exception of the root parse function
+    public
+
+    def parse(ver)
+      unless ver.kind_of? String
+        raise Errors::ParameterError, "expected a string to be parsed"
+      end
+
+      # Chop off any trailing newlines
+      ver.chomp!
+
       # Match the name
-      match = NAME_REGEX.match(nv)
+      match = NAME_REGEX.match(ver)
       if match
         @name = match[:name]
-        nv = nv.sub(NAME_REGEX, '')
-      else
-        raise Errors::ParseError, "unrecognized name format '#{nv}'"
+        ver = ver.sub(NAME_REGEX, '')
+      #else
+      # Sometimes we may not get a name to be parsed. If that's the case
+      # then simply ignore it.
       end
 
       # Match the major, minor and patch versions
-      match = VER_REGEX.match(nv)
+      match = VER_REGEX.match(ver)
       if match
         @major = match[:major].to_i
         @minor = match[:minor].to_i
         @patch = match[:patch].to_i
-        nv = nv.sub(VER_REGEX, '')
+        ver = ver.sub(VER_REGEX, '')
       else
-        raise Errors::ParseError, "unrecognized version format '#{nv}'"
+        raise Errors::ParseError, "unrecognized version format '#{ver}'"
       end
 
       # See if we have a prerelease version (begins with a -)
-      if nv =~ /^-/
-        nv = nv.sub(/^-/, '')
+      if ver =~ /^-/
+        ver = ver.sub(/^-/, '')
 
-        match = parse_release(nv)
+        match = parse_release(ver)
         if match
           # Delete the matched data
-          nv = nv.sub(SPECIAL_REGEX, '')
+          ver = ver.sub(SPECIAL_REGEX, '')
         end
-      else # if nv !~ /^-/
+      else # if ver !~ /^-/
         @reltype = :rel_type_final
       end
 
       # See if we have a build version (begins with a +)
-      if nv =~ /^\+/
-        nv = nv.sub(/^\+/, '')
+      if ver =~ /^\+/
+        ver = ver.sub(/^\+/, '')
 
-        match = parse_build(nv)
+        match = parse_build(ver)
         if match
           # Delete the matched data
-          nv = nv.sub(SPECIAL_REGEX, '')
+          ver = ver.sub(SPECIAL_REGEX, '')
         end
-      else # if nv !~ /^\+/
+      else # if ver !~ /^\+/
         @buildtype = :bld_type_final
       end
 
-      # By now, nv should be empty. Raise an error if this is not the case
-      unless nv.empty?
-        raise Errors::ParseError, "unrecognized version format '#{nv}'"
+      # By now, ver should be empty. Raise an error if this is not the case
+      unless ver.empty?
+        raise Errors::ParseError, "unrecognized version format '#{ver}'"
       end
 
       true

@@ -1,0 +1,156 @@
+#!/usr/bin/env ruby
+# -*- ruby -*-
+
+require 'vmlib'
+
+module VMLib
+
+  # Raised when there is an issue on the command line
+  class CommandError < Errors::VMLibError; end
+  
+  ###########################################################################
+  # Command line interface to VMLib gem
+  ###########################################################################
+  begin
+    command = ARGV.shift || 'format'
+  
+    case command
+
+    #########################################################################
+    # Initializes a new version file in the current folder
+    #########################################################################
+    when /^init(?:ialize)?$/ # init | initialize
+      name = ARGV.shift or
+        raise CommandError, "required: <name>"
+
+      vfile = File.new
+      vfile.create(name)
+    
+    #########################################################################
+    # Bumps the specified version field by 1
+    # If type is specified, then bumps the type to the next higher type, i.e.
+    # development -> alpha -> beta -> release candidate -> final
+    #########################################################################
+    when 'bump' # bump
+      dimension = ARGV.shift or
+        raise CommandError, "required: major | minor | patch | pre | type"
+
+      vfile = File.new
+      version = vfile.read
+
+      case dimension
+      when 'major'
+        version.bump_major
+      when 'minor'
+        version.bump_minor
+      when 'patch'
+        version.bump_patch
+      when 'pre'
+        version.bump_prerelease
+      when 'type'
+        version.bump_release_type
+      else
+        raise CommandError, "invalid dimension #{dimension}"
+      end
+
+      puts "Bumped version to #{version.tag}"
+      vfile.write version
+    
+    #########################################################################
+    # Sets either the prerelease or the build string
+    #########################################################################
+    when 'set'  # set pre | prerelease | build
+      type = ARGV.shift or
+        raise CommandError, "required: pre[release] | build"
+
+      case type
+      when /^pre(?:release)?$/ # pre | prerelease
+        pre = ARGV.shift or
+          raise CommandError, "required: <prerelease string>"
+
+        vfile = File.new
+        version = vfile.read
+        version.prerelease = pre
+        puts "Set prerelease version to #{version.tag}"
+        vfile.write version
+
+      when 'build' # build
+        build = ARGV.shift or
+          raise CommandError, "required: <build string>"
+
+        vfile = File.new
+        version = vfile.read
+        version.build = build
+        puts "Set build version to #{version.tag}"
+        vfile.write version
+      
+      else
+        raise CommandError, "unrecognized set type #{type}"
+      end
+
+    #########################################################################
+    # Updates all the source files with the bumped version
+    # Also writes the changes to the git repository
+    #########################################################################
+    when 'update' # update
+      sfile = Source.new
+      sfile.update
+      version = File.new.read.tag
+
+      puts "Committing changed files in #{version}"
+      system("git commit -am 'Bumped version to #{version}'")
+      
+
+    #########################################################################
+    # Display the version as a format
+    # Accepts an optional format string or 'tag'. If neither is specified
+    # then it will print using the default format string %n%M.%m.%p%r%b
+    #########################################################################
+    when 'format'
+      fstr = ARGV.shift
+      version = File.new.read
+
+      if fstr.nil?
+        puts version.to_s
+      elsif fstr == 'tag'
+        puts version.tag
+      else
+        puts version.format fstr
+      end
+    
+    #########################################################################
+    # Generates a tag version and creates a new Git tag
+    # For now, it simply prints out the tag string
+    #########################################################################
+    when 'tag'
+      version = File.new.read
+      puts "Tagging version #{version.tag}"
+   
+      system "git tag -a -m '#{version.to_s}' #{version.tag}"
+      
+    else
+      raise CommandError, "invalid command #{command}"
+    end
+
+  ###########################################################################
+  # Handler for errors on the command line
+  ###########################################################################
+  rescue CommandError => e
+    puts "#{$0}: #{e.message}"
+    puts "Type #{$0} help for more info"
+    exit 1
+
+  ###########################################################################
+  # Handler for errors from the VMLib source
+  ###########################################################################
+  rescue Errors::VMLibError => e
+    puts "#{$0}: #{e.message}"
+    exit 1
+  end
+
+  ###########################################################################
+  # No handler for other errors
+  ###########################################################################
+
+
+end
