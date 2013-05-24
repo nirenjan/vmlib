@@ -120,7 +120,6 @@ module VMLib
     
     #########################################################################
     # Generates a tag version and creates a new Git tag
-    # For now, it simply prints out the tag string
     #########################################################################
     when 'tag'
       version = File.new.read
@@ -128,6 +127,61 @@ module VMLib
    
       system "git tag -a -m '#{version.to_s}' #{version.tag}"
       
+    #########################################################################
+    # Prints the help string
+    #########################################################################
+    when 'help'
+      hstr = ARGV.shift
+
+      #if fstr.nil?
+        puts <<EOM
+#{$0} is a utility to help manage project versions in accordance with
+the Semantic Versioning specifications v2.0.0-rc.1. The specifications
+can be found at http://semver.org
+
+Usage: #{$0} <command> [arguments]
+
+Supported commands are:
+    init                  Initialize the project. Requires the name of
+    initialize            the project. This will create a Version file
+                          in the current folder and initialize it to
+                          "<name> 0.0.0-0" where <name> is the specified
+                          project name.
+
+    bump                  Bumps the specified version field by 1.
+                          Requires one of the following fields: major,
+                          minor, patch, pre, type.
+                          Bumping the type will bump the prerelease
+                          type to the next type, i.e., development ->
+                          alpha -> beta -> release candidate -> final
+
+    set                   Sets the pre[release] string or the build
+                          metadata string. Usage is as follows:
+                          #{$0} set pre[release] <string>
+                          #{$0} set build <string>
+                          The string is required, however, if you want
+                          to specify an empty string, you need to
+                          explicitly quote it.
+
+    update                Updates source files with the (new) version
+                          information and also writes the changes to
+                          the git repository.
+
+    format                Formats the version information as a string.
+                          You can specify an optional format string
+                          using the format specifiers %n, %M, %m, %p,
+                          %r and %b. Alternatively, if you specify the
+                          format string 'tag', it will generate the tag
+                          string. If you do not specify a format string
+                          it will use the default of %n%M.%m.%p%r%b
+
+    tag                   Creates an annotated Git tag at the current
+                          repository HEAD with the version information.
+
+EOM
+      #end
+
+
     else
       raise CommandError, "invalid command #{command}"
     end
