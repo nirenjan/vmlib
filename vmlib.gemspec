@@ -5,7 +5,7 @@ require 'vmlib/version'
 
 Gem::Specification.new do |s|
   s.name                    = 'vmlib'
-  s.version                 = VMLib::VERSION
+  s.version                 = VMLib::gem_version
   s.date                    = '2013-03-12'
   s.summary                 = "Version Manager Library"
   s.description             = "A gem to handle software versions"
