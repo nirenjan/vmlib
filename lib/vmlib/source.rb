@@ -13,7 +13,7 @@ module VMLib
   class Source
 
     # Set up the tree to find the root of the source repository
-    def initialize(dir = nil)
+    def initialize(vformat = '"%M.%m.%p%r%b"', dir = nil)
       # Find the primary version file and get the root path
       version = File.new.find_file(dir)
       root = ::File.dirname(version)
@@ -27,7 +27,7 @@ module VMLib
       verdata = ::File.read(version)
       v = Version.new
       v.parse verdata
-      @verstring = v.format '"%M.%m.%p%r%b"'
+      @verstring = v.format vformat
     end
 
     # Update the specified file
