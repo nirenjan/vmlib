@@ -104,6 +104,14 @@ module VMLib
         assert_equal '0.0.0', version.to_s
       end
 
+
+      # Test the build assignment
+      def test_build
+        version = VMLib::Version.new
+        version.build = '1'
+        assert_equal '0.0.0+1', version.to_s
+      end
+
     end
 
 
