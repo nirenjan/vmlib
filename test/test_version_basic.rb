@@ -109,7 +109,13 @@ module VMLib
       def test_build
         version = VMLib::Version.new
         version.build = '1'
+        assert_equal '0.0.0-0+1', version.to_s
+
+        version.prerelease = ''
         assert_equal '0.0.0+1', version.to_s
+
+        version.build = 'foo.bar.baz'
+        assert_equal '0.0.0+foo.bar.baz', version.to_s
       end
 
     end
