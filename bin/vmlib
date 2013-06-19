@@ -144,8 +144,8 @@ module VMLib
       #if fstr.nil?
         puts <<EOM
 #{$0} is a utility to help manage project versions in accordance with
-the Semantic Versioning specifications v2.0.0-rc.1. The specifications
-can be found at http://semver.org
+the Semantic Versioning specifications v2.0.0. The specifications can
+be found at http://semver.org
 
 Usage: #{$0} <command> [arguments]
 
