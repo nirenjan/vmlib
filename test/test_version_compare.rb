@@ -12,7 +12,7 @@ module VMLib
 
   module Tests #:nodoc:
 
-    class TestBasicVersion < ::Test::Unit::TestCase   #:nodoc:
+    class TestCompare < ::Test::Unit::TestCase   #:nodoc:
 
       # Test comparing two versions with different major, minor & patch
       def test_compare_regular
