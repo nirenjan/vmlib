@@ -27,6 +27,7 @@ module VMLib
       @buildtype = :bld_type_final
       @buildcustom = []
 
+      @compare_build = false
       true
     end
 
@@ -207,6 +208,8 @@ module VMLib
 
       true
     end
+
+    attr_accessor :compare_build
 
   end
 
