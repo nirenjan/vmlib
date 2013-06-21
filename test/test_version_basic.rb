@@ -116,6 +116,18 @@ module VMLib
 
         version.build = 'foo.bar.baz'
         assert_equal '0.0.0+foo.bar.baz', version.to_s
+
+        # Verify that the build identifiers get treated as strings,
+        # basically checking that we don't strip leading zeroes in fields
+        # with only digits
+        version.build = '001'
+        assert_equal '0.0.0+001', version.to_s
+
+        version.build = '20130313144700'
+        assert_equal '0.0.0+20130313144700', version.to_s
+
+        version.build = 'exp.sha.5114f85'
+        assert_equal '0.0.0+exp.sha.5114f85', version.to_s
       end
 
     end

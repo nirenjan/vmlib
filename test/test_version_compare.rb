@@ -175,8 +175,8 @@ module VMLib
         version1.build = '5c08ad0.20130618'
         assert_equal 1, version1 <=> version2
 
-        # Test that numeric identifiers sort numerically
-        version2.build = '5c08ad0.301206'
+        # Test that numeric identifiers sort lexically
+        version2.build = '5c08ad0.102467890'
         assert_equal 1, version1 <=> version2
       end
 
