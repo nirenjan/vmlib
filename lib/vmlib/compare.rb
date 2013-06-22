@@ -91,7 +91,7 @@ module VMLib
       return cmp unless cmp == 0
 
       # Check build arrays, but only if specified
-      if (@compare_build)
+      if (@@compare_build)
         myown_bld = self.build.split('.')
         convert_to_integer(myown_bld)
         other_bld = other.build.split('.')

@@ -161,7 +161,7 @@ module VMLib
         version2.build = '44cbb6c'
         assert_equal 0, version1 <=> version2
 
-        version1.compare_build = true
+        VMLib::Version.compare_build = true
         assert_equal 1, version1 <=> version2
 
         # Test that having a build metadata sorts higher than none
