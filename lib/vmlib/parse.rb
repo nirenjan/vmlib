@@ -130,7 +130,8 @@ module VMLib
 
         # Done parsing, clear the array if it's not a custom type
         @buildcustom = [] unless @buildtype == :bld_type_custom
-        convert_to_integer(@buildcustom)
+        # Converting to integer breaks some of the sample test cases on
+        # semver.org. Therefore, we will leave the strings as is.
       else # if !match
         # It may be an empty string, so set the buildtype to final in that case
         if str.empty?
