@@ -105,7 +105,7 @@ module VMLib
 
         # The user may have disabled the prerelease parser
         unless (@@enable_prerelease_parser)
-          @reltype == :rel_type_custom
+          @reltype = :rel_type_custom
         end
 
         # Done parsing, clear the relcustom array if it's not a custom type
@@ -168,9 +168,10 @@ module VMLib
       if match
         @name = match[:name]
         ver = ver.sub(NAME_REGEX, '')
-      #else
-      # Sometimes we may not get a name to be parsed. If that's the case
-      # then simply ignore it.
+      else
+        # Sometimes we may not get a name to be parsed. If that's the case
+        # then ensure we clear the name field.
+        @name = ''
       end
 
       # Match the major, minor and patch versions
