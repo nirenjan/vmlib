@@ -52,7 +52,7 @@ module VMLib
       when :rel_type_custom
         lastfield = @relcustom.pop
         if lastfield.kind_of? Integer
-          @relcustom.push (lastfield + 1)
+          @relcustom.push lastfield + 1
         else
           @relcustom.push lastfield
           raise Errors::BumpError, "cannot bump a non-numeric prerelease field"
