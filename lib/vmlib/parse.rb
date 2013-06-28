@@ -103,6 +103,11 @@ module VMLib
           @reltype = :rel_type_custom
         end
 
+        # The user may have disabled the prerelease parser
+        unless (@@enable_prerelease_parser)
+          @reltype == :rel_type_custom
+        end
+
         # Done parsing, clear the relcustom array if it's not a custom type
         @relcustom = [] unless @reltype == :rel_type_custom
         convert_to_integer(@relcustom)
@@ -148,6 +153,8 @@ module VMLib
     # With the exception of the root parse function
     public
 
+    # Parse a string containing the project name and version number into
+    # its individual components
     def parse(ver)
       unless ver.kind_of? String
         raise Errors::ParameterError, "expected a string to be parsed"
