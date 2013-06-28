@@ -90,13 +90,15 @@ module VMLib
       cmp = -1 if cmp == 1 and other_pre.length == 0
       return cmp unless cmp == 0
 
-      # Check build arrays
-      myown_bld = self.build.split('.')
-      convert_to_integer(myown_bld)
-      other_bld = other.build.split('.')
-      convert_to_integer(other_bld)
-      cmp = compare_arrays(myown_bld, other_bld)
-      return cmp unless cmp == 0
+      # Check build arrays, but only if specified
+      # As with the parser, leave identifiers as strings so they can
+      # be compared lexically
+      if (@@compare_build)
+        myown_bld = self.build.split('.')
+        other_bld = other.build.split('.')
+        cmp = compare_arrays(myown_bld, other_bld)
+        return cmp unless cmp == 0
+      end
 
       return 0
     end

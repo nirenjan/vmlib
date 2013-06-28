@@ -90,16 +90,24 @@ module VMLib
 
     #########################################################################
     # Updates all the source files with the bumped version
-    # Also writes the changes to the git repository
+    # Accepts an optional format string. If not specified, uses %M.%m.%p%r%b
     #########################################################################
     when 'update' # update
-      sfile = Source.new
+      # Allow the user to specify the format
+      foption = ARGV.shift || '"%M.%m.%p%r%b"'
+
+      sfile = Source.new(foption)
       sfile.update
+      
+    #########################################################################
+    # Writes all local changes to the git repository. SHOULD be preceded
+    # immediately by an update command.
+    #########################################################################
+    when 'commit' # commit
       version = File.new.read.tag
 
       puts "Committing changed files in #{version}"
       system("git commit -am 'Bumped version to #{version}'")
-      
 
     #########################################################################
     # Display the version as a format
@@ -136,8 +144,8 @@ module VMLib
       #if fstr.nil?
         puts <<EOM
 #{$0} is a utility to help manage project versions in accordance with
-the Semantic Versioning specifications v2.0.0-rc.1. The specifications
-can be found at http://semver.org
+the Semantic Versioning specifications v2.0.0. The specifications can
+be found at http://semver.org
 
 Usage: #{$0} <command> [arguments]
 
@@ -165,7 +173,9 @@ Supported commands are:
 
     update                Updates source files with the (new) version
                           information and also writes the changes to
-                          the git repository.
+                          the git repository. You may optionally specify
+                          a format string, failing which it will use the
+                          default format string of "%M.%m.%p%r%b"
 
     format                Formats the version information as a string.
                           You can specify an optional format string

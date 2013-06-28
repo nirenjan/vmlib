@@ -103,6 +103,11 @@ module VMLib
           @reltype = :rel_type_custom
         end
 
+        # The user may have disabled the prerelease parser
+        unless (@@enable_prerelease_parser)
+          @reltype = :rel_type_custom
+        end
+
         # Done parsing, clear the relcustom array if it's not a custom type
         @relcustom = [] unless @reltype == :rel_type_custom
         convert_to_integer(@relcustom)
@@ -130,7 +135,8 @@ module VMLib
 
         # Done parsing, clear the array if it's not a custom type
         @buildcustom = [] unless @buildtype == :bld_type_custom
-        convert_to_integer(@buildcustom)
+        # Converting to integer breaks some of the sample test cases on
+        # semver.org. Therefore, we will leave the strings as is.
       else # if !match
         # It may be an empty string, so set the buildtype to final in that case
         if str.empty?
@@ -147,6 +153,8 @@ module VMLib
     # With the exception of the root parse function
     public
 
+    # Parse a string containing the project name and version number into
+    # its individual components
     def parse(ver)
       unless ver.kind_of? String
         raise Errors::ParameterError, "expected a string to be parsed"
@@ -160,9 +168,10 @@ module VMLib
       if match
         @name = match[:name]
         ver = ver.sub(NAME_REGEX, '')
-      #else
-      # Sometimes we may not get a name to be parsed. If that's the case
-      # then simply ignore it.
+      else
+        # Sometimes we may not get a name to be parsed. If that's the case
+        # then ensure we clear the name field.
+        @name = ''
       end
 
       # Match the major, minor and patch versions

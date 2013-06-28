@@ -5,6 +5,9 @@
 # All rights reserved.
 ###############################################################################
 
+# Class attributes
+require 'vmlib/class'
+
 # Version processing
 require 'vmlib/base'
 require 'vmlib/bump'
