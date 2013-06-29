@@ -12,6 +12,7 @@ module VMLib
   # Command line interface to VMLib gem
   ###########################################################################
   begin
+    an = $0.sub(/^.*\//, '')
     command = ARGV.shift || 'format'
   
     case command
@@ -143,11 +144,11 @@ module VMLib
 
       #if fstr.nil?
         puts <<EOM
-#{$0} is a utility to help manage project versions in accordance with
+#{an} is a utility to help manage project versions in accordance with
 the Semantic Versioning specifications v2.0.0. The specifications can
 be found at http://semver.org
 
-Usage: #{$0} <command> [arguments]
+Usage: #{an} <command> [arguments]
 
 Supported commands are:
     init                  Initialize the project. Requires the name of
@@ -165,8 +166,8 @@ Supported commands are:
 
     set                   Sets the pre[release] string or the build
                           metadata string. Usage is as follows:
-                          #{$0} set pre[release] <string>
-                          #{$0} set build <string>
+                          #{an} set pre[release] <string>
+                          #{an} set build <string>
                           The string is required, however, if you want
                           to specify an empty string, you need to
                           explicitly quote it.
@@ -200,15 +201,15 @@ EOM
   # Handler for errors on the command line
   ###########################################################################
   rescue CommandError => e
-    puts "#{$0}: #{e.message}"
-    puts "Type #{$0} help for more info"
+    puts "#{an}: #{e.message}"
+    puts "Type #{an} help for more info"
     exit 1
 
   ###########################################################################
   # Handler for errors from the VMLib source
   ###########################################################################
   rescue Errors::VMLibError => e
-    puts "#{$0}: #{e.message}"
+    puts "#{an}: #{e.message}"
     exit 1
   end
 
