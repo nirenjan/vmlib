@@ -39,7 +39,7 @@ module VMLib
     #
     # Leading zeroes will be stripped in any numeric field, therefore, the
     # version 1.078.2 would be treated the same as 1.78.2
-    VER_REGEX = /^(?:v|version )?(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/
+    VER_REGEX = /^(?:v|version )?(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)/
 
     # Regular expression format to retrieve the name. Names may consist of
     # any combination of any alphanumeric character, underscores and hyphens.
