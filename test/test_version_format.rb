@@ -95,10 +95,6 @@ module VMLib
         version.prerelease = '1.2.3.4.5.6.7.8.9.0'
         assert_equal '-1.2.3.4.5.6.7.8.9.0', version.format('%r')
 
-        # Verify that numeric fields are stripped of leading zeroes
-        version.prerelease = '1.2.3.4.5.6.7.8.9.09'
-        assert_equal '-1.2.3.4.5.6.7.8.9.9', version.format('%r')
-
       end
 
 
@@ -138,7 +134,7 @@ module VMLib
         assert_equal 'v1.2.3-rc.1', version.tag
 
         # Changing the prerelease should reflect in the tag
-        version.prerelease = 'alpha.02'
+        version.prerelease = 'alpha.2'
         assert_equal 'v1.2.3-a.2', version.tag
 
         # Removing the prerelease should reflect in the tag
@@ -187,7 +183,7 @@ module VMLib
         assert_equal 'bar 1.2.3-rc.1', version.to_s
 
         # Changing the prerelease should reflect in the to_s
-        version.prerelease = 'alpha.02'
+        version.prerelease = 'alpha.2'
         assert_equal 'bar 1.2.3-a.2', version.to_s
 
         # Removing the prerelease should reflect in the to_s

@@ -66,6 +66,37 @@ module VMLib
         # name, otherwise, it will treat the program name as 'version'
       end
 
+      # Check parsing of version strings with leading zeros throws errors
+      def test_parse_leading_zeros
+        v = VMLib::Version.new
+
+        # Test parsing with leading zero in major
+        assert_raise VMLib::Errors::ParseError do
+          v.parse '01.2.3-pre.4.5.6'
+        end
+
+        # Test parsing with leading zero in minor
+        assert_raise VMLib::Errors::ParseError do
+          v.parse '1.02.3-pre.4.5.6'
+        end
+
+        # Test parsing with leading zero in patch
+        assert_raise VMLib::Errors::ParseError do
+          v.parse '1.2.03-pre.4.5.6'
+        end
+
+        # Test parsing with leading zero in prerelease identifier field
+        assert_raise VMLib::Errors::ParseError do
+          v.parse '1.2.3-pre.04.5.6'
+        end
+
+        # Verify that leading zeroes in alphanumeric fields doesn't raise errors
+        v.parse '1.2.3-pre.0ac011d.250'
+
+        # Verify that leading zeros in build fields doesn't raise errors
+        v.parse '1.2.3-pre.foo+bld.0123456.0001'
+      end
+
       # Check parsing of strings with various prerelease combinations
       def test_parse_pre
         v = VMLib::Version.new

@@ -33,13 +33,16 @@ module VMLib
     # Regular expression to understand the version format.
     #
     # Acceptable formats:
-    #     1.078.2
+    #     1.78.2
     #     v1.30.4908
     #     version 2.4.875
     #
-    # Leading zeroes will be stripped in any numeric field, therefore, the
-    # version 1.078.2 would be treated the same as 1.78.2
+    # Leading zeroes are not accepted in any numeric field
     VER_REGEX = /^(?:v|version )?(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)/
+
+    # Regular expression to understand the version format with optional leading
+    # zeroes
+    VER_REGEX_ZERO = /^(?:v|version )?(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/
 
     # Regular expression format to retrieve the name. Names may consist of
     # any combination of any alphanumeric character, underscores and hyphens.
@@ -60,6 +63,15 @@ module VMLib
         # OK, we have a prerelease match, now parse it to determine
         # the release type
         @relcustom = match[0].split '.'
+
+        # Cross check to make sure that we don't have leading zeroes
+        # in any numeric field
+        for i in (0...@relcustom.length)
+          if @relcustom[i].to_s.match(/^0\d+$/)
+            raise Errors::ParseError, "leading zeroes not allowed in numeric identifiers"
+          end
+        end
+
         rel = @relcustom[0]
         case rel
 
@@ -182,7 +194,11 @@ module VMLib
         @patch = match[:patch].to_i
         ver = ver.sub(VER_REGEX, '')
       else
-        raise Errors::ParseError, "unrecognized version format '#{ver}'"
+        if VER_REGEX_ZERO.match(ver)
+          raise Errors::ParseError, "leading zeroes not acceptable in version"
+        else
+          raise Errors::ParseError, "unrecognized version format '#{ver}'"
+        end
       end
 
       # See if we have a prerelease version (begins with a -)
