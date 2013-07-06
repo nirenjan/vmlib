@@ -7,7 +7,7 @@
 
 module VMLib
 
-  VERSION = "1.2.0-a.1" #:nodoc:
+  VERSION = "2.0.0-a.1" #:nodoc:
 
   # This function is used by the gemspec file to generate a
   # gem version number that corresponds to %M.%m.%p format
