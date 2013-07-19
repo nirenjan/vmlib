@@ -5,9 +5,10 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "bundler/gem_tasks"
 require "vmlib/version"
 
+task :default => [:test]
 # Unit tests task
 desc "Run unit test task for vmlib-#{VMLib::VERSION}"
-task :test do
+task :test => [:build] do
   $:.unshift(::File.expand_path('lib', ::File.dirname(__FILE__)))
   if ::ENV['TEST_CASE']
     test_files = ::Dir.glob("test/#{::ENV['TEST_CASE']}.rb")
