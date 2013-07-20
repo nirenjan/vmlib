@@ -2,7 +2,7 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-require "coveralls"
+require "simplecov"
 require "bundler/gem_tasks"
 require "vmlib/version"
 
@@ -18,7 +18,7 @@ task :test => [:build] do
   end
   $VERBOSE = true
 
-  Coveralls.wear!
+  SimpleCov.start
   test_files.each do |path|
     load path
     puts "Loaded testcase #{path}"
