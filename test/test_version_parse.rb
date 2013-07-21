@@ -59,6 +59,11 @@ module VMLib
         assert_equal '-2', v.prerelease
         assert_equal '', v.build
 
+        # Invalid version format (such as 1.2.a3) throws an error
+        assert_raise VMLib::Errors::ParseError do
+          v.parse 'vmlib 2.0.a1'
+        end
+
         # Right now, vmlib does not support having the format
         # version X.Y.Z, i.e., no name, but the string 'version'
         # followed by the version number. If you need to use the
@@ -100,6 +105,17 @@ module VMLib
       # Check parsing of strings with various prerelease combinations
       def test_parse_pre
         v = VMLib::Version.new
+
+        # Passing anything other than a string causes an error to be raised
+        assert_raise VMLib::Errors::ParameterError do
+          # Pass a number
+          v.parse 1.2
+        end
+
+        assert_raise VMLib::Errors::ParameterError do
+          # Pass an array
+          v.parse [1, 2, 0, '', '']
+        end
 
         # Default case - prerelease parser enabled
         v.parse 'v1.1.0-2'
@@ -152,6 +168,10 @@ module VMLib
         assert_equal 0, v.patch
         assert_equal '-rc.2', v.prerelease
         assert_equal '', v.build
+        # Check rc but with non-standard field
+        v.parse 'v1.1.0-rc.1a'
+        assert_equal '-rc.1a', v.prerelease
+        assert_equal '', v.build
 
         # Check final case
         v.parse 'v1.1.0'
@@ -170,6 +190,12 @@ module VMLib
         assert_equal 0, v.patch
         assert_equal '-alpha.1a', v.prerelease
         assert_equal '', v.build
+
+        # Passing an invalid prerelease string (such as ?, #, $, etc)
+        # throws an error
+        assert_raise VMLib::Errors::ParseError do
+          v.parse 'v1.1.0-$gedfabc0'
+        end
 
         # Check with prerelease parser disabled
         # This mainly addresses the alpha and beta cases, since it reduces
@@ -205,6 +231,13 @@ module VMLib
         assert_equal 0, v.patch
         assert_equal '', v.prerelease
         assert_equal '+20130628.0354.gef3c66c', v.build
+
+        # Passing an invalid build string (such as ?, #, $, etc)
+        # throws an error
+        assert_raise VMLib::Errors::ParseError do
+          v.parse 'v1.1.0+$gedfabc0'
+        end
+
       end
 
       # Test that you can store any combination of pre and build, and

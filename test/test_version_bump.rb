@@ -195,6 +195,11 @@ module VMLib
         assert_raise(VMLib::Errors::BumpError) do
           version.bump_prerelease
         end
+
+        # Error raised when trying to bump the type
+        assert_raise(VMLib::Errors::BumpError) do
+          version.bump_release_type
+        end
       end
 
 

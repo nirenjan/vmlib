@@ -146,6 +146,10 @@ module VMLib
         version2.prerelease = 'a.1.b.2'
         assert_equal 1, version1 <=> version2
 
+        # Test that numeric identifiers are lower in ranking than alphanumeric
+        version1.prerelease = 'a.1.2.2'
+        assert_equal -1, version1 <=> version2
+
         # Test that longer identifiers sort higher than shorter ones
         version1.prerelease = 'a.1.b.2.c'
         assert_equal 1, version1 <=> version2
