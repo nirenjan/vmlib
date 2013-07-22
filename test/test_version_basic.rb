@@ -130,6 +130,62 @@ module VMLib
         assert_equal '0.0.0+exp.sha.5114f85', version.to_s
       end
 
+
+      # Test the inspect method
+      def test_inspect
+        v = VMLib::Version.new 'vmlib', 1, 2, 0, '', ''
+        assert_match(/^#<VMLib::Version:0x[0-9a-f]{16} @name='vmlib' @major=1 @minor=2 @patch=0>$/, v.inspect)
+
+        v.name = 'foo'
+        assert_match(/^#<VMLib::Version:0x[0-9a-f]{16} @name='foo' @major=1 @minor=2 @patch=0>$/, v.inspect)
+
+        v.major = 3
+        assert_match(/^#<VMLib::Version:0x[0-9a-f]{16} @name='foo' @major=3 @minor=2 @patch=0>$/, v.inspect)
+
+        v.minor = 1
+        assert_match(/^#<VMLib::Version:0x[0-9a-f]{16} @name='foo' @major=3 @minor=1 @patch=0>$/, v.inspect)
+
+        v.patch = 4
+        assert_match(/^#<VMLib::Version:0x[0-9a-f]{16} @name='foo' @major=3 @minor=1 @patch=4>$/, v.inspect)
+
+        # Test the dev prerelease
+        v.prerelease = '159'
+        assert_match(/^#<VMLib::Version:0x[0-9a-f]{16} @name='foo' @major=3 @minor=1 @patch=4 @devnum=159>$/, v.inspect)
+
+        # Test the alpha prerelease
+        v.prerelease = 'alpha.59'
+        assert_match(/^#<VMLib::Version:0x[0-9a-f]{16} @name='foo' @major=3 @minor=1 @patch=4 @alphanum=59>$/, v.inspect)
+
+        # Test the beta prerelease
+        v.prerelease = 'beta.857'
+        assert_match(/^#<VMLib::Version:0x[0-9a-f]{16} @name='foo' @major=3 @minor=1 @patch=4 @betanum=857>$/, v.inspect)
+
+        # Test the rc prerelease
+        v.prerelease = 'rc.2'
+        assert_match(/^#<VMLib::Version:0x[0-9a-f]{16} @name='foo' @major=3 @minor=1 @patch=4 @rcnum=2>$/, v.inspect)
+
+        # Test the custom prerelease
+        v.prerelease = '1.2a'
+        assert_match(/^#<VMLib::Version:0x[0-9a-f]{16} @name='foo' @major=3 @minor=1 @patch=4 @prerelease=\[1, "2a"\]>$/,  v.inspect)
+
+        # Test adding on a custom build
+        v.build = 'g3567acc'
+        assert_match(/^#<VMLib::Version:0x[0-9a-f]{16} @name='foo' @major=3 @minor=1 @patch=4 @prerelease=\[1, "2a"\] @build=\["g3567acc"\]>$/,  v.inspect)
+        
+        # Test adding on a custom build
+        v.build = 'g3567acc.20130721'
+        assert_match(/^#<VMLib::Version:0x[0-9a-f]{16} @name='foo' @major=3 @minor=1 @patch=4 @prerelease=\[1, "2a"\] @build=\["g3567acc", "20130721"\]>$/,  v.inspect)
+        
+        # Test clearing the prerelease
+        v.prerelease = ''
+        assert_match(/^#<VMLib::Version:0x[0-9a-f]{16} @name='foo' @major=3 @minor=1 @patch=4 @build=\["g3567acc", "20130721"\]>$/,  v.inspect)
+        
+        # Test clearing the build
+        v.build = ''
+        assert_match(/^#<VMLib::Version:0x[0-9a-f]{16} @name='foo' @major=3 @minor=1 @patch=4>$/,  v.inspect)
+      end
+
+
     end
 
 
