@@ -29,12 +29,12 @@ module VMLib
         # Test if having different minor versions shows up correctly
         version2.major = 1
         version2.minor = 1
-        assert_equal -1, version1 <=> version2
+        assert_equal '-1'.to_i, version1 <=> version2 
 
         # Test if having different patch versions shows up correctly
         version1.minor = 1
         version2.patch = 10
-        assert_equal -1, version1 <=> version2
+        assert_equal '-1'.to_i, version1 <=> version2
 
         # Test if setting the versions to identical one shows up as equal
         version1.patch = 10
@@ -148,7 +148,7 @@ module VMLib
 
         # Test that numeric identifiers are lower in ranking than alphanumeric
         version1.prerelease = 'a.1.2.2'
-        assert_equal -1, version1 <=> version2
+        assert_equal '-1'.to_i, version1 <=> version2
 
         # Test that longer identifiers sort higher than shorter ones
         version1.prerelease = 'a.1.b.2.c'
