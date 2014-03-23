@@ -24,3 +24,6 @@ require 'vmlib/version'
 
 # Source file processing
 require 'vmlib/source'
+
+# Range handling
+require 'vmlib/range'

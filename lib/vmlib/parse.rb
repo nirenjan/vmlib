@@ -221,13 +221,4 @@ module VMLib
 
   end
 
-
-  class Range
-    private
-    def parse (val)
-      if (val =~ /-/)
-      end
-    end
-
-  end
 end
