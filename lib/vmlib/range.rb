@@ -10,12 +10,29 @@ require 'strscan'
 module VMLib
 
   class Range
+    
+    # Numeric range expression accepts any positive number without leading zeroes
+    VNUM = /0|[1-9]\d*/
+
+    # Version number can consist of major, major+minor or a full M+m+p
+    VERSION = /#{VNUM}(\.#{VNUM}?(\.#{VNUM})?)?/
+
+    # Match operators are tied to the version, and constrain the match against
+    # that version
+    MATCHOP = /(~\>|[><]|[><!=]=)\s*/
+
+    # A version expression consists of an optional match operator followed by
+    # optional whitespace followed by the version (excluding the match operator
+    # implies an implicit exact match '=='), or it can be a version range
+    # that is expressed as version - version.
+    VEREXP = /(#{MATCHOP}?#{VERSION})|(#{VERSION}\s*-\s*#{VERSION})/
 
     # Initialize the range
     def initialize
       @match_data = StringScanner.new ''
       reset_parser
     end
+    attr_reader :match_data, :parse_tokens, :range
 
     # Set the range
     def range= (val)
@@ -48,96 +65,36 @@ module VMLib
       # * -
       # * &&, ||
       # * !
-      num = /0|[1-9]\d*/
       init_parser(val)
       while not @match_data.eos?
         # Skip over any whitespace
         match_exp(/\s+/) and next
 
-        # Match a patch level version number
-        match_exp(/#{num}\.#{num}\.#{num}/) do |v|
-          [[:version, :patch, v]]
+        # Match a version number range (VERSION - VERSION)
+        match_exp(/#{VERSION}\s*-\s*#{VERSION}/) do |v|
+          parse_range(v)
         end and next
 
-        # Match a minor level version number
-        match_exp(/#{num}\.#{num}/) do |v|
-          [[:version, :minor, v + '.0']]
+        # Match a version number prefixed by an optional match operator
+        match_exp(/((~>|[<>]|[<>=!]=)\s*)?#{VERSION}/) do |v|
+          parse_match(v)
         end and next
 
-        # Match a major level version number
-        match_exp(/#{num}/) do |v|
-          [[:version, :major, v + '.0.0']]
-        end and next
-
-        # Match the constrain operator (~>)
-        match_exp(/~>/) do |v|
-          [[:operator, :constrain]]
-        end and next
-
-        # Match the range operators (>=, <=, ==, !=, >, <)
-        match_exp(/[<=>!]=/) do |v|
-          case v[0]
-          when '>='
-            op = :ge
-          when '<='
-            op = :le
-          when '=='
-            op = :eq
-          when '!='
-            op = :ne
-          end
-
-          [[:operator, op]]
-        end and next
-
-        # Match strictly greater/lesser
-        match_exp(/[<>]/) do |v|
-          if v[0] == '>'
-            op = :gt
-          else
-            op = :lt
-          end
-
-          [[:operator, op]]
-        end and next
-
-        # Match to operator
-        match_exp(/-/) do |v|
-          [[:range]]
-        end and next
-
-        # Match not operator
-        match_exp(/!/) do |v|
-          [[:logical, :not]]
+        # Match logical operators
+        match_exp(/!|([&|])\1/) do |v|
+          [[:logical, v]]
         end and next
 
         # Match parentheses
         match_exp(/[()]/) do |v|
-          if v[0] == '('
-            open = true
-          else
-            open = false
-          end
-
-          [[:parentheses, open]]
-        end and next
-
-        # Match && and || operators
-        match_exp(/&&/) do |v|
-          [[:logical, :and]]
-        end and next
-
-        match_exp(/\|\|/) do |v|
-          [[:logical, :or]]
+          [[:parentheses, v]]
         end and next
 
         # Should never reach this point
         reset_parser
         raise Errors::ParseError,
-            "Invalid range expression '#{@match_data.string}'"
+            "Invalid range expression '#{@match_data.string}' at index #{@match_data.pos}"
       end
-
-      convert_to_rpn
 
       @match_data.string
     end
@@ -158,33 +115,101 @@ module VMLib
     end
 
     def init_parser(val)
-      @range = []
+      @range = true
       @match_data.string = val
       @parse_tokens = []
     end
 
     def reset_parser
-      @range = [false]
-      @match_data.string = ''
-      @parse_tokens = []
+      @range = false
     end
 
-    def convert_to_rpn
-      @tokens = ''
-      @parse_tokens.each do |tok|
-        @tokens += case tok[0]
-          when :version
-            'v'
-          when :operator
-            'r'
-          when :range
-            't'
-          when :parentheses
-            if (tok[1]) then '(' else ')' end
-          when :logical
-            tok[1].to_s[0]
-        end
+    def parse_match(v)
+      ver = parse_version(v.match(/#{VERSION}/)[0])
+      v = v.gsub(/\s*#{VERSION}/, '')
+      op = case v
+        when '~>'
+          return parse_constrain(ver)
+        when '>='
+          :ge
+        when '<='
+          :le
+        when '>'
+          :gt
+        when '<'
+          :lt
+        when '!='
+          :ne
+        when '=='
+          :eq
+        else
+          :eq
       end
+      [[:version, op, ver]]
+    end
+
+    # Parse range basically splits the version range into two match operators,
+    # i.e., V1 - V2 => (>= V1 && <= V2)
+    def parse_range(v)
+      s = StringScanner.new v
+      r = []
+      t = s.scan /#{VERSION}/
+      r << [:parentheses, '(']
+      r << [:version, :ge, parse_version(t)]
+      r << [:logical, '&&']
+      s.scan /\s*-\s*/
+      t = s.scan /#{VERSION}/
+      t = parse_version(t)
+      method = "bump_#{t[:type].to_s}".to_sym
+      t[:ver].method(method).call
+
+      r << [:version, :lt, t]
+      r << [:parentheses, ')']
+      r
+    end
+
+    def parse_version(v)
+      ver = Version.new
+
+      case v.count(".")
+      when 0
+        vt = v + '.0.0'
+        ver.parse vt
+        {:type => :major, :ver => ver}
+      when 1
+        vt = v + '.0'
+        ver.parse vt
+        {:type => :minor, :ver => ver}
+      when 2
+        ver.parse v
+        {:type => :patch, :ver => ver}
+      end
+    end
+
+    def parse_constrain(ver)
+      v1 = ver[:ver]
+      out = [
+        [:parentheses, '('],
+        [:version, :ge, {:type => :patch, :ver => v1}],
+        [:logical, '&&']
+      ]
+      out << case ver[:type]
+        when :major
+          [:absolute, true]
+        when :minor
+          v = Version.new
+          v.parse v1.to_s
+          v.bump_major
+          [:version, :lt, {:type => :patch, :ver => v}]
+        when :patch
+          v = Version.new
+          v.parse v1.to_s
+          v.bump_minor
+          [:version, :lt, {:type => :patch, :ver => v}]
+      end
+      out << [:parentheses, ')']
+
+      out
     end
 
   end
