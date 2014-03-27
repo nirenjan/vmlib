@@ -11,6 +11,8 @@ module VMLib
 
   class Version
 
+    include Comparable
+
     # Compare two arrays element by element.
     # If one element is numeric and the other a string, then the string
     # takes precedence over the number.
