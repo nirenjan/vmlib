@@ -6,15 +6,17 @@
 ###############################################################################
 
 # Class attributes
-require 'vmlib/class'
+require 'version/class'
+
+# Error handling
+require 'vmlib/errors'
 
 # Version processing
-require 'vmlib/base'
-require 'vmlib/bump'
-require 'vmlib/errors'
-require 'vmlib/compare'
-require 'vmlib/parse'
-require 'vmlib/format'
+require 'version/base'
+require 'version/bump'
+require 'version/compare'
+require 'version/parse'
+require 'version/format'
 
 # File processing
 require 'vmlib/file'

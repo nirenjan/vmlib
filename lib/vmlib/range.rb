@@ -153,12 +153,12 @@ module VMLib
     def parse_range(v)
       s = StringScanner.new v
       r = []
-      t = s.scan /#{VERSION}/
+      t = s.scan(/#{VERSION}/)
       r << [:parentheses, '(']
       r << [:version, :ge, parse_version(t)]
       r << [:logical, '&&']
-      s.scan /\s*-\s*/
-      t = s.scan /#{VERSION}/
+      s.scan(/\s*-\s*/)
+      t = s.scan(/#{VERSION}/)
       t = parse_version(t)
       method = "bump_#{t[:type].to_s}".to_sym
       t[:ver].method(method).call
