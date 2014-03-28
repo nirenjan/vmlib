@@ -28,4 +28,4 @@ require 'vmlib/version'
 require 'vmlib/source'
 
 # Range handling
-require 'vmlib/range'
+require 'range/parse'
