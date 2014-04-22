@@ -1,3 +1,4 @@
+# encoding: UTF-8
 ###############################################################################
 # VMLib exceptions
 ###############################################################################
@@ -5,14 +6,9 @@
 # All rights reserved.
 ###############################################################################
 
-;
-
 module VMLib
-
-
   # This is a namespace for errors that can be thrown by VMLib
   module Errors
-
     # Base class for all VMLib exceptions
     class VMLibError < ::RuntimeError
     end
@@ -49,7 +45,4 @@ module VMLib
     class VersionFileError < VMLibError
     end
   end
-
-
 end
-

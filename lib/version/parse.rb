@@ -1,3 +1,4 @@
+# encoding: UTF-8
 ###############################################################################
 # VMLib parser
 ###############################################################################
@@ -5,13 +6,10 @@
 # All rights reserved.
 ###############################################################################
 
-;
-
 module VMLib
-
   class Version
-
     # The parse functions are all marked as private
+
     private
 
     # Regular expression format to understand the release and build formats.
@@ -42,18 +40,18 @@ module VMLib
 
     # Regular expression to understand the version format with optional leading
     # zeroes
-    VER_REGEX_ZERO = /^(?:v|version )?(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/
+    VER_REGEX_ZERO = /^(?:v|version )?\d+\.\d+\.\d+/
 
     # Regular expression format to retrieve the name. Names may consist of
     # any combination of any alphanumeric character, underscores and hyphens.
     NAME_REGEX = /^(?<name>[0-9A-Za-z_-]+)\s+/
 
     def convert_to_integer(array)
-      array.kind_of? Array or
-        raise Errors::VMLibError, "not an array: #{array}"
+      array.kind_of?(Array) ||
+        fail(Errors::VMLibError, "not an array: #{array}")
 
-      for i in (0...array.length)
-        array[i].to_s.match(/^\d+$/) and array[i] = array[i].to_i
+      array.each_index do |i|
+        array[i].to_s.match(/^\d+$/) && array[i] = array[i].to_i
       end
     end
 
@@ -66,9 +64,10 @@ module VMLib
 
         # Cross check to make sure that we don't have leading zeroes
         # in any numeric field
-        for i in (0...@relcustom.length)
-          if @relcustom[i].to_s.match(/^0\d+$/)
-            raise Errors::ParseError, "leading zeroes not allowed in numeric identifiers"
+        @relcustom.each do |r|
+          if r.to_s.match(/^0\d+$/)
+            fail Errors::ParseError,
+                 'leading zeroes not allowed in numeric identifiers'
           end
         end
 
@@ -116,9 +115,7 @@ module VMLib
         end
 
         # The user may have disabled the prerelease parser
-        unless (@@enable_prerelease_parser)
-          @reltype = :rel_type_custom
-        end
+        @reltype = :rel_type_custom unless @@enable_prerelease_parser
 
         # Done parsing, clear the relcustom array if it's not a custom type
         @relcustom = [] unless @reltype == :rel_type_custom
@@ -129,11 +126,11 @@ module VMLib
           match = nil
           @reltype = :rel_type_final
         else
-          raise Errors::ParseError, "unrecognized prerelease '#{str}'"
+          fail Errors::ParseError, "unrecognized prerelease '#{str}'"
         end
       end
 
-      return match
+      match
     end
 
     def parse_build(str)
@@ -155,21 +152,20 @@ module VMLib
           match = nil
           @buildtype = :bld_type_final
         else
-          raise Errors::ParseError, "unrecognized build '#{str}'"
+          fail Errors::ParseError, "unrecognized build '#{str}'"
         end
       end
 
-      return match
+      match
     end
 
-    # With the exception of the root parse function
     public
 
     # Parse a string containing the project name and version number into
     # its individual components
     def parse(ver)
       unless ver.kind_of? String
-        raise Errors::ParameterError, "expected a string to be parsed"
+        fail Errors::ParameterError, 'expected a string to be parsed'
       end
 
       # Chop off any trailing newlines
@@ -195,9 +191,9 @@ module VMLib
         ver = ver.sub(VER_REGEX, '')
       else
         if VER_REGEX_ZERO.match(ver)
-          raise Errors::ParseError, "leading zeroes not acceptable in version"
+          fail Errors::ParseError, 'leading zeroes not acceptable in version'
         else
-          raise Errors::ParseError, "unrecognized version format '#{ver}'"
+          fail Errors::ParseError, "unrecognized version format '#{ver}'"
         end
       end
 
@@ -229,12 +225,10 @@ module VMLib
 
       # By now, ver should be empty. Raise an error if this is not the case
       unless ver.empty?
-        raise Errors::ParseError, "unrecognized version format '#{ver}'"
+        fail Errors::ParseError, "unrecognized version format '#{ver}'"
       end
 
       true
     end
-
   end
-
 end

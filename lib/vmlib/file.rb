@@ -1,3 +1,4 @@
+# encoding: UTF-8
 ###############################################################################
 # VMLib file manager
 ###############################################################################
@@ -5,13 +6,9 @@
 # All rights reserved.
 ###############################################################################
 
-;
-
 module VMLib
-
   # This is the file class for handling VMLib version files
   class File
-
     # Default file name of 'Version'
     FILE_NAME = 'Version'
 
@@ -26,18 +23,17 @@ module VMLib
     # Raises an error if it cannot find any up to the root.
     def find_file(dir = nil)
       dir ||= ::Dir.pwd
-      raise Errors::PathError unless ::File.directory?(dir)
+      fail Errors::PathError unless ::File.directory?(dir)
       path = ::File.join(dir, @filename)
 
       ::Dir.chdir(dir) do
-        while !::File.exists?(path) do
-          if (::File.dirname(path).match(/^(\w:\/|\/)$/i))
-            raise Errors::NoVersionError, "#{dir} is not versioned"
+        until ::File.exist?(path)
+          if ::File.dirname(path).match(%r{^(\w:/|/)$}i)
+            fail Errors::NoVersionError, "#{dir} is not versioned"
           end
 
           path = ::File.join(::File.dirname(path), '..')
           path = ::File.expand_path(path)
-          #puts "vmlib: looking at path #{path}"
           path = ::File.join(path, @filename)
         end
         @dir = path
@@ -54,10 +50,10 @@ module VMLib
         verdata = Version.new
         verdata.parse ::File.read(path)
       else
-        raise Errors::VersionFileError, "unable to read #{path}"
+        fail Errors::VersionFileError, "unable to read #{path}"
       end
 
-      return verdata
+      verdata
     end
 
     # Write the specfied version into the version file
@@ -65,14 +61,14 @@ module VMLib
       path = find_file(dir)
 
       unless version.is_a? Version
-        raise Errors::ParameterError, "invalid version #{version}"
+        fail Errors::ParameterError, "invalid version #{version}"
       end
 
       if ::File.writable?(path)
         # Write
         ::File.write(path, version.to_s + "\n")
       else
-        raise Errors::VersionFileError, "unable to write #{path}"
+        fail Errors::VersionFileError, "unable to write #{path}"
       end
     end
 
@@ -84,23 +80,18 @@ module VMLib
         path = find_file(dir)
       rescue Errors::NoVersionError
         # We are good to go
+        dir ||= ::Dir.pwd
+        raise Errors::PathError unless ::File.directory?(dir)
+        path = ::File.join(dir, @filename)
+
+        ::File.open(path, 'w') do |file|
+          version = Version.new(name)
+          file.write version.to_s + "\n"
+        end
       else
         # Raise error that it's already versioned
-        raise Errors::VersionFileError, "version already exists at #{path}"
+        fail Errors::VersionFileError, "version already exists at #{path}"
       end
-
-      dir ||= ::Dir.pwd
-      raise Errors::PathError unless ::File.directory?(dir)
-      path = ::File.join(dir, @filename)
-
-      ::File.open(path, "w") do |file|
-        version = Version.new(name)
-        file.write version.to_s + "\n"
-      end
-
     end
-
   end
-
-
 end

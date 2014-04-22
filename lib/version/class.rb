@@ -1,3 +1,4 @@
+# encoding: UTF-8
 ###############################################################################
 # VMLib class attributes
 ###############################################################################
@@ -5,21 +6,17 @@
 # All rights reserved.
 ###############################################################################
 
-;
-
 module VMLib
-
   # This is the primary version number class for the version manager library
   class Version
-
-    #==================================================================
+    # ==================================================================
     # Compare build operator - this is false by default
-    #==================================================================
+    # ==================================================================
     @@compare_build = false
 
-    def self.compare_build= (val) #:nodoc:
-      unless val == true or val == false
-        raise Errors::ParameterError, "invalid value #{val}"
+    def self.compare_build=(val) #:nodoc:
+      unless val == true || val == false
+        fail Errors::ParameterError, "invalid value #{val}"
       end
 
       @@compare_build = val
@@ -30,14 +27,14 @@ module VMLib
       @@compare_build
     end
 
-    #==================================================================
+    # ==================================================================
     # Prerelease parser - this is enabled by default
-    #==================================================================
+    # ==================================================================
     @@enable_prerelease_parser = true
 
-    def self.enable_prerelease_parser= (val) #:nodoc:
-      unless val == true or val == false
-        raise Errors::ParameterError, "invalid value #{val}"
+    def self.enable_prerelease_parser=(val) #:nodoc:
+      unless val == true || val == false
+        fail Errors::ParameterError, "invalid value #{val}"
       end
 
       @@enable_prerelease_parser = val
@@ -50,8 +47,5 @@ module VMLib
     def self.enable_prerelease_parser
       @@enable_prerelease_parser
     end
-
   end
-
-
 end

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 ###############################################################################
 # VMLib base
 ###############################################################################
@@ -5,13 +6,9 @@
 # All rights reserved.
 ###############################################################################
 
-;
-
 module VMLib
-
   # This is the primary version number class for the version manager library
   class Version
-
     # Reset the version number to 0.0.0-0
     def reset
       @name = ''
@@ -31,44 +28,44 @@ module VMLib
     end
 
     # Create a new version instance and set it to the specified parameters
-    def initialize(name = '', major = 0, minor = 0, patch = 0, prerelease = '0', build = '')
+    def initialize(name = '',
+                   major = 0, minor = 0, patch = 0,
+                   prerelease = '0', build = '')
       reset
-      set_name name
-      set_major major
-      set_minor minor
-      set_patch patch
-      set_prerelease prerelease
-      set_build build
+      self.name = name
+      self.major = major
+      self.minor = minor
+      self.patch = patch
+      self.prerelease = prerelease
+      self.build = build
     end
-    
+
     # Inspect the version object
     def inspect
       str = "#<#{self.class}:"
-      str += "0x%016x" % (self.object_id * 2)
+      str += Kernel.format('0x%016x', object_id * 2)
       str += " @name='#{@name}'"
       str += " @major=#{@major}"
       str += " @minor=#{@minor}"
       str += " @patch=#{@patch}"
 
-      case @reltype
-      when :rel_type_dev
-        str += " @devnum=#{@devnum}"
-      when :rel_type_alpha
-        str += " @alphanum=#{@alphanum}"
-      when :rel_type_beta
-        str += " @betanum=#{@betanum}"
-      when :rel_type_rc
-        str += " @rcnum=#{@rcnum}"
-      when :rel_type_custom
-        str += " @prerelease=#{@relcustom.inspect}"
-      end
+      str +=
+        case @reltype
+        when :rel_type_dev    then " @devnum=#{@devnum}"
+        when :rel_type_alpha  then " @alphanum=#{@alphanum}"
+        when :rel_type_beta   then " @betanum=#{@betanum}"
+        when :rel_type_rc     then " @rcnum=#{@rcnum}"
+        when :rel_type_custom then " @prerelease=#{@relcustom.inspect}"
+        else ''
+        end
 
-      case @buildtype
-      when :bld_type_custom
-        str += " @build=#{@buildcustom.inspect}"
-      end
+      str +=
+        case @buildtype
+        when :bld_type_custom then " @build=#{@buildcustom.inspect}"
+        else ''
+        end
 
-      str += ">"
+      str += '>'
 
       str
     end
@@ -82,17 +79,12 @@ module VMLib
 
     # Set the program or project name
     undef name=
-    def name= (name) #:nodoc:
-      set_name name
-    end
-
-    def set_name (name) #:nodoc:
-      name.kind_of? String or
-        raise Errors::AssignError, "invalid name #{name.inspect}"
+    def name=(name) #:nodoc:
+      name.kind_of?(String) ||
+        fail(Errors::AssignError, "invalid name #{name.inspect}")
 
       @name = name
     end
-    private :set_name
 
     ###########################################################################
     # Accessor functions for major
@@ -104,16 +96,11 @@ module VMLib
     # Set the major version number
     undef major=
     def major=(major) #:nodoc:
-      set_major major
-    end
-
-    def set_major (major) #:nodoc:
-      major.kind_of? Integer or
-        raise Errors::AssignError, "invalid major version #{major.inspect}"
+      major.kind_of?(Integer) ||
+        fail(Errors::AssignError, "invalid major version #{major.inspect}")
 
       @major = major
     end
-    private :set_major
 
     ###########################################################################
     # Accessor functions for minor
@@ -125,16 +112,11 @@ module VMLib
     # Set the minor version number
     undef minor=
     def minor=(minor) #:nodoc:
-      set_minor minor
-    end
-
-    def set_minor (minor) #:nodoc:
-      minor.kind_of? Integer or
-        raise Errors::AssignError, "invalid minor version #{minor.inspect}"
+      minor.kind_of?(Integer) ||
+        fail(Errors::AssignError, "invalid minor version #{minor.inspect}")
 
       @minor = minor
     end
-    private :set_minor
 
     ###########################################################################
     # Accessor functions for patch
@@ -146,16 +128,11 @@ module VMLib
     # Set the patch version number
     undef patch=
     def patch=(patch) #:nodoc:
-      set_patch patch
-    end
-
-    def set_patch (patch) #:nodoc:
-      patch.kind_of? Integer or
-        raise Errors::AssignError, "invalid patch version #{patch.inspect}"
+      patch.kind_of?(Integer) ||
+        fail(Errors::AssignError, "invalid patch version #{patch.inspect}")
 
       @patch = patch
     end
-    private :set_patch
 
     ###########################################################################
     # Accessor functions for prerelease
@@ -167,21 +144,16 @@ module VMLib
     end
 
     # Set the prerelease information
-    def prerelease=(prerelease)
-      set_prerelease prerelease
-    end
+    def prerelease=(pre)
+      pre.kind_of?(String) ||
+        fail(Errors::ParseError, "invalid prerelease #{pre.inspect}")
 
-    def set_prerelease (prerelease) #:nodoc:
-      prerelease.kind_of? String or
-        raise Errors::ParseError, "invalid prerelease #{prerelease.inspect}"
-
-      m = parse_release(prerelease)
-      prerelease = prerelease.sub(SPECIAL_REGEX, '') if m
-      warn "ignoring additional data #{prerelease.inspect}" unless prerelease.empty?
+      m = parse_release(pre)
+      pre = pre.sub(SPECIAL_REGEX, '') if m
+      warn "ignoring additional data #{pre.inspect}" unless pre.empty?
 
       true
     end
-    private :set_prerelease
 
     ###########################################################################
     # Accessor functions for build
@@ -194,12 +166,8 @@ module VMLib
 
     # Set the build information
     def build=(build)
-      set_build build
-    end
-
-    def set_build (build) #:nodoc:
-      build.kind_of? String or
-        raise Errors::ParseError, "invalid build #{build.inspect}"
+      build.kind_of?(String) ||
+        fail(Errors::ParseError, "invalid build #{build.inspect}")
 
       m = parse_build(build)
       build = build.sub(SPECIAL_REGEX, '') if m
@@ -207,9 +175,5 @@ module VMLib
 
       true
     end
-
-
   end
-
-
 end

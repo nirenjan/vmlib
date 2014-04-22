@@ -1,3 +1,4 @@
+## encoding: UTF-8
 ###############################################################################
 # VMLib source editor
 ###############################################################################
@@ -5,13 +6,9 @@
 # All rights reserved.
 ###############################################################################
 
-;
-
 module VMLib
-
   # This is the class for updating source files with the new version
   class Source
-
     # Set up the tree to find the root of the source repository
     def initialize(vformat = '"%M.%m.%p%r%b"', dir = nil)
       # Find the primary version file and get the root path
@@ -21,7 +18,7 @@ module VMLib
       # Find all files below the root which have the filename
       # beginning with 'version'
       @files = ::Dir.glob("#{root}/**/version*")
-      @files.delete_if {|f| ! ::File.file? f }
+      @files.delete_if { |f| ! ::File.file? f }
 
       # Read the primary version file and get the version string from it
       verdata = ::File.read(version)
@@ -31,15 +28,14 @@ module VMLib
     end
 
     # Update the specified file
-    def update_file (f)
+    def update_file(f)
       fdata = ::File.read(f).split("\n")
-      
-      for i in (0...fdata.length)
+
+      fdata.each_index do |i|
         # Check for a version string
         # VERSION ... "<version string>"
         line = fdata[i]
-        
-        if (line =~ /VERSION.*"\d+\.\d+\.\d+[^"]*"/)
+        if line =~ /VERSION.*"\d+\.\d+\.\d+[^"]*"/
           puts "updating line #{i} in #{f}..."
           puts "    old: #{line}"
           fdata[i] = line.gsub(/"\d+\.\d+\.\d+[^"]*"/, @verstring)
@@ -48,7 +44,7 @@ module VMLib
       end
 
       # For whatever reason, the split deletes the last entry and leaves
-      # us without a newline at the end of the file. Make sure that we 
+      # us without a newline at the end of the file. Make sure that we
       # do insert a newline at the end of the file.
       ::File.write(f, fdata.join("\n") + "\n")
     end
@@ -56,10 +52,7 @@ module VMLib
 
     # Update all the source files containing the version
     def update
-      @files.each {|f| update_file(f) }
+      @files.each { |f| update_file(f) }
     end
-
   end
-
-
 end

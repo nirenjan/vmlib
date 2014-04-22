@@ -1,3 +1,4 @@
+# encoding: UTF-8
 ###############################################################################
 # VMLib comparision routines
 ###############################################################################
@@ -5,41 +6,33 @@
 # All rights reserved.
 ###############################################################################
 
-;
-
 module VMLib
-
   class Version
-
     include Comparable
 
     # Compare two arrays element by element.
     # If one element is numeric and the other a string, then the string
     # takes precedence over the number.
     def compare_arrays(array1, array2)
-      raise Errors::ParameterError unless array1.is_a? Array
-      raise Errors::ParameterError unless array2.is_a? Array
+      fail Errors::ParameterError unless array1.is_a? Array
+      fail Errors::ParameterError unless array2.is_a? Array
 
       # Run for the shorter of the two arrays
       if array1.length < array2.length
         len = array1.length
-        possibly_gt = :array2
       else
         len = array2.length
-        possibly_gt = :array1
       end
 
       cmp = 0
 
       # Check for an empty array, if so, resort to using the Array <=>
-      if len == 0
-        return array1 <=> array2
-      end
+      return array1 <=> array2 if len == 0
 
-      for i in (0...len)
+      (0...len).each do |i|
         elm1 = array1[i]
         elm2 = array2[i]
-        
+
         cls1 = elm1.class
         cls2 = elm2.class
 
@@ -62,12 +55,12 @@ module VMLib
 
       # Resort to comparing the remaining elements using Array <=>
       cmp = (array1[len...array1.length] <=> array2[len...array2.length])
-      return cmp
+      cmp
     end
     private :compare_arrays
 
     # Compare two version structures
-    def <=> (other)
+    def <=>(other)
       # Check major version
       cmp = (@major <=> other.major)
       return cmp unless cmp == 0
@@ -81,31 +74,28 @@ module VMLib
       return cmp unless cmp == 0
 
       # Check prerelease arrays
-      myown_pre = self.prerelease.split('.')
+      myown_pre = prerelease.split('.')
       convert_to_integer(myown_pre)
       other_pre = other.prerelease.split('.')
       convert_to_integer(other_pre)
       cmp = compare_arrays(myown_pre, other_pre)
-      
+
       # Make sure that the prerelease is compared correctly
-      cmp = 1 if cmp == -1 and myown_pre.length == 0
-      cmp = -1 if cmp == 1 and other_pre.length == 0
+      cmp = 1 if cmp == -1 && myown_pre.length == 0
+      cmp = -1 if cmp == 1 && other_pre.length == 0
       return cmp unless cmp == 0
 
       # Check build arrays, but only if specified
       # As with the parser, leave identifiers as strings so they can
       # be compared lexically
-      if (@@compare_build)
-        myown_bld = self.build.split('.')
+      if @@compare_build
+        myown_bld = build.split('.')
         other_bld = other.build.split('.')
         cmp = compare_arrays(myown_bld, other_bld)
         return cmp unless cmp == 0
       end
 
-      return 0
+      0
     end
-
   end
-
-
 end

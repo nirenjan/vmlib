@@ -1,3 +1,4 @@
+# encoding: UTF-8
 ###############################################################################
 # VMLib formatter
 ###############################################################################
@@ -5,12 +6,8 @@
 # All rights reserved.
 ###############################################################################
 
-;
-
 module VMLib
-
   class Version
-
     # Default tag format for version control systems
     TAG_FORMAT = 'v%M.%m.%p%r%b'
 
@@ -41,11 +38,12 @@ module VMLib
       match = /%(\d*)p/.match(fstr)
       fstr = fstr.gsub(/%(\d*)p/, "%0#{$1}d" % @patch)
 
-      if (@reltype == :rel_type_final) or
-         (@reltype == :rel_type_custom and @relcustom.length == 0)
+      if (@reltype == :rel_type_final) ||
+         (@reltype == :rel_type_custom && @relcustom.length == 0)
         fstr = fstr.gsub('%r', '')
       else
-        fstr = case @reltype
+        fstr =
+          case @reltype
           when :rel_type_dev
             fstr.gsub('%r', "-#{@devnum}")
           when :rel_type_alpha
@@ -61,11 +59,12 @@ module VMLib
           end
       end
 
-      if (@buildtype == :bld_type_final) or
-         (@buildtype == :bld_type_custom and @buildcustom.length == 0)
+      if (@buildtype == :bld_type_final) ||
+         (@buildtype == :bld_type_custom && @buildcustom.length == 0)
         fstr = fstr.gsub('%b', '')
       else
-        fstr = case @buildtype
+        fstr =
+          case @buildtype
           when :bld_type_custom
             fstr.gsub('%b', '+' + @buildcustom.join('.'))
           else
@@ -84,11 +83,7 @@ module VMLib
 
     # Display the version information as a string
     def to_s
-      format "%n%M.%m.%p%r%b"
+      format '%n%M.%m.%p%r%b'
     end
-
-
   end
-
-
 end

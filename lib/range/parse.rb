@@ -1,3 +1,4 @@
+# encoding: UTF-8
 ###############################################################################
 # VMLib range parser
 ###############################################################################
@@ -8,10 +9,15 @@
 require 'strscan'
 
 module VMLib
-
+  # The Range class accepts a range expression. Each range expression consists
+  # of multiple version expressions chained together by boolean operators.
+  # A version expression consists of an optional match operator followed by
+  # optional whitespace followed by the version (excluding the match operator
+  # implies an implicit exact match '=='), or it can be a version range
+  # that is expressed as version - version.
   class Range
-    
-    # Numeric range expression accepts any positive number without leading zeroes
+    # Numeric range expression accepts any positive number without leading
+    # zeroes
     VNUM = /0|[1-9]\d*/
 
     # Version number can consist of major, major+minor or a full M+m+p
@@ -21,12 +27,6 @@ module VMLib
     # that version
     MATCHOP = /(~\>|[><]|[><!=]=)\s*/
 
-    # A version expression consists of an optional match operator followed by
-    # optional whitespace followed by the version (excluding the match operator
-    # implies an implicit exact match '=='), or it can be a version range
-    # that is expressed as version - version.
-    VEREXP = /(#{MATCHOP}?#{VERSION})|(#{VERSION}\s*-\s*#{VERSION})/
-
     # Initialize the range
     def initialize
       @match_data = StringScanner.new ''
@@ -35,9 +35,9 @@ module VMLib
     attr_reader :match_data, :parse_tokens, :range
 
     # Set the range
-    def range= (val)
+    def range=(val)
       unless val.kind_of? String
-        raise Errors::ParameterError, "unrecognized input type #{val}"
+        fail Errors::ParameterError, "unrecognized input type #{val}"
       end
 
       # Supported values
@@ -66,52 +66,52 @@ module VMLib
       # * &&, ||
       # * !
       init_parser(val)
-      while not @match_data.eos?
+      until @match_data.eos?
         # Skip over any whitespace
-        match_exp(/\s+/) and next
+        match_exp(/\s+/) && next
 
         # Match a version number range (VERSION - VERSION)
         match_exp(/#{VERSION}\s*-\s*#{VERSION}/) do |v|
           parse_range(v)
-        end and next
+        end && next
 
         # Match a version number prefixed by an optional match operator
         match_exp(/((~>|[<>]|[<>=!]=)\s*)?#{VERSION}/) do |v|
           parse_match(v)
-        end and next
+        end && next
 
         # Match logical operators
         match_exp(/!|([&|])\1/) do |v|
           [[:logical, v]]
-        end and next
+        end && next
 
         # Match parentheses
         match_exp(/[()]/) do |v|
           [[:parentheses, v]]
-        end and next
+        end && next
 
         # Should never reach this point
         reset_parser
-        raise Errors::ParseError,
-            "Invalid range expression '#{@match_data.string}' at index #{@match_data.pos}"
+        fail Errors::ParseError,
+             "Invalid range expression '#{@match_data.string}' at index " \
+             "#{@match_data.pos}"
       end
 
       @match_data.string
     end
 
     private
+
     def match_exp(exp, &block)
       match = @match_data.scan(exp)
       if match
         if block_given?
           result = yield(match)
-          if result
-            @parse_tokens.concat result
-          end
+          @parse_tokens.concat(result) if result
         end
       end
 
-      return match
+      match
     end
 
     def init_parser(val)
@@ -127,7 +127,8 @@ module VMLib
     def parse_match(v)
       ver = parse_version(v.match(/#{VERSION}/)[0])
       v = v.gsub(/\s*#{VERSION}/, '')
-      op = case v
+      op =
+        case v
         when '~>'
           return parse_constrain(ver)
         when '>='
@@ -144,7 +145,7 @@ module VMLib
           :eq
         else
           :eq
-      end
+        end
       [[:version, op, ver]]
     end
 
@@ -160,7 +161,7 @@ module VMLib
       s.scan(/\s*-\s*/)
       t = s.scan(/#{VERSION}/)
       t = parse_version(t)
-      method = "bump_#{t[:type].to_s}".to_sym
+      method = "bump_#{t[:type]}".to_sym
       t[:ver].method(method).call
 
       r << [:version, :lt, t]
@@ -171,18 +172,18 @@ module VMLib
     def parse_version(v)
       ver = Version.new
 
-      case v.count(".")
+      case v.count('.')
       when 0
         vt = v + '.0.0'
         ver.parse vt
-        {:type => :major, :ver => ver}
+        { type: :major, ver: ver }
       when 1
         vt = v + '.0'
         ver.parse vt
-        {:type => :minor, :ver => ver}
+        { type: :minor, ver: ver }
       when 2
         ver.parse v
-        {:type => :patch, :ver => ver}
+        { type: :patch, ver: ver }
       end
     end
 
@@ -190,29 +191,27 @@ module VMLib
       v1 = ver[:ver]
       out = [
         [:parentheses, '('],
-        [:version, :ge, {:type => :patch, :ver => v1}],
+        [:version, :ge, { type: :patch, ver: v1 }],
         [:logical, '&&']
       ]
-      out << case ver[:type]
+      out <<
+        case ver[:type]
         when :major
           [:absolute, true]
         when :minor
           v = Version.new
           v.parse v1.to_s
-          v.bump_major
-          [:version, :lt, {:type => :patch, :ver => v}]
+          .bump_major
+          [:version, :lt, { type: :patch, ver: v }]
         when :patch
           v = Version.new
           v.parse v1.to_s
           v.bump_minor
-          [:version, :lt, {:type => :patch, :ver => v}]
-      end
+          [:version, :lt, { type: :patch, ver: v }]
+        end
       out << [:parentheses, ')']
 
       out
     end
-
   end
-
-
 end
