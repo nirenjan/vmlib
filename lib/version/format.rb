@@ -20,58 +20,22 @@ module VMLib
     #        %r - prerelease
     #        %b - build number
     def format(fstr)
-      if @name.empty?
-        fstr = fstr.gsub('%n', '')
-      else
-        fstr = fstr.gsub('%n', @name.to_s + ' ')
-      end
+      fstr = format_name(fstr)
 
       # Match the major version
-      match = /%(\d*)M/.match(fstr)
-      fstr = fstr.gsub(/%(\d*)M/, "%0#{$1}d" % @major)
+      fstr = format_vnumber(fstr, 'M', @major)
 
       # Match the minor version
-      match = /%(\d*)m/.match(fstr)
-      fstr = fstr.gsub(/%(\d*)m/, "%0#{$1}d" % @minor)
+      fstr = format_vnumber(fstr, 'm', @minor)
 
       # Match the patch version
-      match = /%(\d*)p/.match(fstr)
-      fstr = fstr.gsub(/%(\d*)p/, "%0#{$1}d" % @patch)
+      fstr = format_vnumber(fstr, 'p', @patch)
 
-      if (@reltype == :rel_type_final) ||
-         (@reltype == :rel_type_custom && @relcustom.length == 0)
-        fstr = fstr.gsub('%r', '')
-      else
-        fstr =
-          case @reltype
-          when :rel_type_dev
-            fstr.gsub('%r', "-#{@devnum}")
-          when :rel_type_alpha
-            fstr.gsub('%r', "-a.#{@alphanum}")
-          when :rel_type_beta
-            fstr.gsub('%r', "-b.#{@betanum}")
-          when :rel_type_rc
-            fstr.gsub('%r', "-rc.#{@rcnum}")
-          when :rel_type_custom
-            fstr.gsub('%r', '-' + @relcustom.join('.'))
-          else
-            fstr.gsub('%r', '')
-          end
-      end
+      # Match the prerelease version
+      fstr = format_prerelease(fstr)
 
-      if (@buildtype == :bld_type_final) ||
-         (@buildtype == :bld_type_custom && @buildcustom.length == 0)
-        fstr = fstr.gsub('%b', '')
-      else
-        fstr =
-          case @buildtype
-          when :bld_type_custom
-            fstr.gsub('%b', '+' + @buildcustom.join('.'))
-          else
-            fstr.gsub('%b', '')
-          end
-      end
-
+      # Match the build version
+      fstr = format_build(fstr)
       fstr
     end
 
@@ -84,6 +48,44 @@ module VMLib
     # Display the version information as a string
     def to_s
       format '%n%M.%m.%p%r%b'
+    end
+
+    private
+
+    def format_name(fstr)
+      if @name.empty?
+        fstr.gsub('%n', '')
+      else
+        fstr.gsub('%n', @name.to_s + ' ')
+      end
+    end
+
+    def format_vnumber(fstr, cls, val)
+      expr = /%(\d*)#{cls}/
+      loop do
+        match = expr.match(fstr)
+        break unless match
+        fstr = fstr.sub(expr, Kernel.format("%0#{match[1]}d", val))
+      end
+      fstr
+    end
+
+    def format_prerelease(fstr)
+      case @reltype
+      when :rel_type_dev    then fstr.gsub('%r', "-#{@devnum}")
+      when :rel_type_alpha  then fstr.gsub('%r', "-a.#{@alphanum}")
+      when :rel_type_beta   then fstr.gsub('%r', "-b.#{@betanum}")
+      when :rel_type_rc     then fstr.gsub('%r', "-rc.#{@rcnum}")
+      when :rel_type_custom then fstr.gsub('%r', '-' + @relcustom.join('.'))
+      else fstr.gsub('%r', '')
+      end
+    end
+
+    def format_build(fstr)
+      case @buildtype
+      when :bld_type_custom then fstr.gsub('%b', '+' + @buildcustom.join('.'))
+      else fstr.gsub('%b', '')
+      end
     end
   end
 end
