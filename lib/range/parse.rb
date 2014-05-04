@@ -23,10 +23,6 @@ module VMLib
     # Version number can consist of major, major+minor or a full M+m+p
     VERSION = /#{VNUM}(\.#{VNUM}?(\.#{VNUM})?)?/
 
-    # Match operators are tied to the version, and constrain the match against
-    # that version
-    MATCHOP = /(~\>|[><]|[><!=]=)\s*/
-
     # Initialize the range
     def initialize
       @match_data = StringScanner.new ''

@@ -10,39 +10,30 @@ module VMLib
   # This is a namespace for errors that can be thrown by VMLib
   module Errors
     # Base class for all VMLib exceptions
-    class VMLibError < ::RuntimeError
-    end
+    VMLibError = Class.new(::RuntimeError)
 
     # Thrown if release type doesn't match with requested parameter
-    class NoVersionError < VMLibError
-    end
+    NoVersionError = Class.new(VMLibError)
 
     # Thrown if bump operation cannot be performed
-    class BumpError < VMLibError
-    end
+    BumpError = Class.new(VMLibError)
 
     # Thrown if initialization fails
-    class InitError < VMLibError
-    end
+    InitError = Class.new(VMLibError)
 
     # Thrown if parsing fails
-    class ParseError < VMLibError
-    end
+    ParseError = Class.new(VMLibError)
 
     # Thrown if assigning an invalid value
-    class AssignError < VMLibError
-    end
+    AssignError = Class.new(VMLibError)
 
     # Thrown if the API receives invalid parameters
-    class ParameterError < VMLibError
-    end
+    ParameterError = Class.new(VMLibError)
 
     # Thrown if there's an issue with the path for the version file
-    class PathError < VMLibError
-    end
+    PathError = Class.new(VMLibError)
 
     # Thrown if there's an issue with the version file itself
-    class VersionFileError < VMLibError
-    end
+    VersionFileError = Class.new(VMLibError)
   end
 end
