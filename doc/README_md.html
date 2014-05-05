@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>README - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+<div id="table-of-contents">
+  <nav class="section">
+    <h3 class="section-header">Table of Contents</h3>
+    <ul>
+      <li><a href="#label-Version+Manager+Library">Version Manager Library</a>
+      <li><a href="#label-Public+API">Public API</a>
+      <li><a href="#label-Release+Types">Release Types</a>
+    </ul>
+  </nav>
+</div>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="./README_md.html">README</a>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./Version.html">Version</a>
+  
+    <li class="file"><a href="./doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="./lib/vmlib/issue_txt.html">issue</a>
+  
+    <li class="file"><a href="./vmlib_gemspec.html">vmlib.gemspec</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./VMLib.html">VMLib</a>
+  
+    <li><a href="./VMLib/CommandError.html">VMLib::CommandError</a>
+  
+    <li><a href="./VMLib/Errors.html">VMLib::Errors</a>
+  
+    <li><a href="./VMLib/Errors/AssignError.html">VMLib::Errors::AssignError</a>
+  
+    <li><a href="./VMLib/Errors/BumpError.html">VMLib::Errors::BumpError</a>
+  
+    <li><a href="./VMLib/Errors/InitError.html">VMLib::Errors::InitError</a>
+  
+    <li><a href="./VMLib/Errors/NoVersionError.html">VMLib::Errors::NoVersionError</a>
+  
+    <li><a href="./VMLib/Errors/ParameterError.html">VMLib::Errors::ParameterError</a>
+  
+    <li><a href="./VMLib/Errors/ParseError.html">VMLib::Errors::ParseError</a>
+  
+    <li><a href="./VMLib/Errors/PathError.html">VMLib::Errors::PathError</a>
+  
+    <li><a href="./VMLib/Errors/VMLibError.html">VMLib::Errors::VMLibError</a>
+  
+    <li><a href="./VMLib/Errors/VersionFileError.html">VMLib::Errors::VersionFileError</a>
+  
+    <li><a href="./VMLib/File.html">VMLib::File</a>
+  
+    <li><a href="./VMLib/Source.html">VMLib::Source</a>
+  
+    <li><a href="./VMLib/Version.html">VMLib::Version</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<h1 id="label-Version+Manager+Library"><a href="Version.html">Version</a> Manager Library<span><a href="#label-Version+Manager+Library">&para;</a> <a href="#documentation">&uarr;</a></span></h1>
+
+<p>The <a href="Version.html">Version</a> manager library (VMLib) is a generic
+library to handle
+semantic versioning as specified at <a
+href="http://semver.org">semver.org</a>. In addition to
+complying with
+semantic versioning v2.0.0, it adds additional API
+calls to bump the major,
+minor and patch versions as well as handle
+distinct types of releases
+(development, alpha, beta, release candidate,
+final as well as a custom
+type)</p>
+
+<h1 id="label-Public+API">Public API<span><a href="#label-Public+API">&para;</a> <a href="#documentation">&uarr;</a></span></h1>
+
+<p><a href="VMLib.html">VMLib</a> has the following public CLI interface</p>
+
+<p><code>init &lt;name&gt;</code> - Initializes the version tracker</p>
+
+<blockquote>
+<p>This creates a new version tracker library for the project
+named
+&lt;name&gt;. It initializes the version number to 0.1.0 and the
+release
+type to <code>:development</code> and the release number to 0. If
+the project
+has already been intialized, then raises VMLibInitError.</p>
+</blockquote>
+
+<p><code>bump major</code> - Bumps the major version</p>
+
+<blockquote>
+<p>This will increment the major version by 1, while simultaneously
+setting
+the minor version and patchlevel to 0.</p>
+</blockquote>
+
+<p><code>bump minor</code> - Bumps the minor version</p>
+
+<blockquote>
+<p>This will increment the minor version by 1 and reset the patch level
+to 0.</p>
+</blockquote>
+
+<p><code>bump patch</code> - Bumps the patch level</p>
+
+<blockquote>
+<p>This will increment the patch level by 1.</p>
+</blockquote>
+
+<p><code>bump type</code> - Bumps the prerelease type to the next higher
+release type</p>
+
+<blockquote>
+<p>This will bump the prerelease type up to the next higher release
+type,
+i.e., <code>development</code> -&gt; <code>alpha</code> -&gt;
+<code>beta</code> -&gt; <code>release candidate</code>
+-&gt;
+<code>final</code>. The corresponding release number is also set to
+1. If the
+release type is already <code>final</code> or
+<code>custom</code>, it will raise
+<code>VMLib::Errors::BumpError</code>.</p>
+</blockquote>
+
+<p><code>bump pre</code>, <code>bump prerelease</code></p>
+
+<blockquote>
+<p>This will bump the release number by 1 if the prerelease type
+is
+<code>development</code>, <code>alpha</code>, <code>beta</code> or
+<code>release candidate</code>. If the
+release type is <code>:final</code>
+it will raise <a
+href="VMLib/Errors/BumpError.html">VMLib::Errors::BumpError</a>.
+If the
+release type is <code>custom</code>, it will take the last field
+of
+<code>relcustom</code> and if numeric, it will bump it, otherwise, it
+will
+raise <a
+href="VMLib/Errors/BumpError.html">VMLib::Errors::BumpError</a>.</p>
+</blockquote>
+
+<p><code>set pre</code>, <code>set prerelease</code></p>
+
+<blockquote>
+<p>This will set the prerelease information as specified by the user.</p>
+</blockquote>
+
+<p><code>set build</code></p>
+
+<blockquote>
+<p>This will set the build information as specified by the user.</p>
+</blockquote>
+
+<p><code>format</code></p>
+
+<blockquote>
+<p>This takes in an optional format string for printing the
+version
+information. If the format string is not specified, it will revert
+to
+the default, however, if the format string is <code>tag</code>, then it
+will
+print the tag format.</p>
+</blockquote>
+
+<p><code>update</code></p>
+
+<blockquote>
+<p>This command will search for all source files beginning with the
+string
+<code>version</code> and will update them to match with the primary
+version
+number set by the bump routine. It will also generate a Git
+commit for the
+changed files.</p>
+</blockquote>
+
+<p><code>tag</code></p>
+
+<blockquote>
+<p>This command will generate a Git tag with the version specified by
+the
+version number file.</p>
+</blockquote>
+
+<h1 id="label-Release+Types">Release Types<span><a href="#label-Release+Types">&para;</a> <a href="#documentation">&uarr;</a></span></h1>
+
+<p><a href="VMLib.html">VMLib</a> supports the following release types, in
+order</p>
+<ul><li>
+<p>development</p>
+</li><li>
+<p>alpha</p>
+</li><li>
+<p>beta</p>
+</li><li>
+<p>release candidate</p>
+</li><li>
+<p>final</p>
+</li><li>
+<p>custom</p>
+</li></ul>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

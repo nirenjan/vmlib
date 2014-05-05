@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module VMLib - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>bin/vmlib
+    <li>lib/vmlib/base.rb
+    <li>lib/vmlib/bump.rb
+    <li>lib/vmlib/class.rb
+    <li>lib/vmlib/compare.rb
+    <li>lib/vmlib/errors.rb
+    <li>lib/vmlib/file.rb
+    <li>lib/vmlib/format.rb
+    <li>lib/vmlib/parse.rb
+    <li>lib/vmlib/source.rb
+    <li>lib/vmlib/version.rb
+    <li>test/test_version_basic.rb
+    <li>test/test_version_bump.rb
+    <li>test/test_version_compare.rb
+    <li>test/test_version_format.rb
+    <li>test/test_version_parse.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-i-create">#create</a>
+    
+    <li ><a href="#method-i-read">#read</a>
+    
+    <li ><a href="#method-i-write">#write</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="./README_md.html">README</a>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./Version.html">Version</a>
+  
+    <li class="file"><a href="./doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="./lib/vmlib/issue_txt.html">issue</a>
+  
+    <li class="file"><a href="./vmlib_gemspec.html">vmlib.gemspec</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./VMLib.html">VMLib</a>
+  
+    <li><a href="./VMLib/CommandError.html">VMLib::CommandError</a>
+  
+    <li><a href="./VMLib/Errors.html">VMLib::Errors</a>
+  
+    <li><a href="./VMLib/Errors/AssignError.html">VMLib::Errors::AssignError</a>
+  
+    <li><a href="./VMLib/Errors/BumpError.html">VMLib::Errors::BumpError</a>
+  
+    <li><a href="./VMLib/Errors/InitError.html">VMLib::Errors::InitError</a>
+  
+    <li><a href="./VMLib/Errors/NoVersionError.html">VMLib::Errors::NoVersionError</a>
+  
+    <li><a href="./VMLib/Errors/ParameterError.html">VMLib::Errors::ParameterError</a>
+  
+    <li><a href="./VMLib/Errors/ParseError.html">VMLib::Errors::ParseError</a>
+  
+    <li><a href="./VMLib/Errors/PathError.html">VMLib::Errors::PathError</a>
+  
+    <li><a href="./VMLib/Errors/VMLibError.html">VMLib::Errors::VMLibError</a>
+  
+    <li><a href="./VMLib/Errors/VersionFileError.html">VMLib::Errors::VersionFileError</a>
+  
+    <li><a href="./VMLib/File.html">VMLib::File</a>
+  
+    <li><a href="./VMLib/Source.html">VMLib::Source</a>
+  
+    <li><a href="./VMLib/Version.html">VMLib::Version</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module VMLib</h1>
+
+  <div id="description" class="description">
+    
+<p><a href="VMLib.html">VMLib</a> version information</p>
+
+<p>Copyright (C) 2013 Nirenjan Krishnan All rights reserved.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-create" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create</span><span
+            class="method-args">(name = '', dir = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Create a new version file for the current (or specified) folder. If it
+already exists, then throw an error</p>
+          
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/file.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>(<span class="ruby-identifier">name</span> = <span class="ruby-string">&#39;&#39;</span>, <span class="ruby-identifier">dir</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-comment"># Make sure that the directory isn&#39;t versioned already</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">path</span> = <span class="ruby-identifier">find_file</span>(<span class="ruby-identifier">dir</span>)
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">NoVersionError</span>
+    <span class="ruby-comment"># We are good to go</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># Raise error that it&#39;s already versioned</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">VersionFileError</span>, <span class="ruby-node">&quot;version already exists at #{path}&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">dir</span> <span class="ruby-operator">||=</span> <span class="ruby-operator">::</span><span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">PathError</span> <span class="ruby-keyword">unless</span> <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">dir</span>)
+  <span class="ruby-identifier">path</span> = <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-ivar">@filename</span>)
+
+  <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">path</span>, <span class="ruby-string">&quot;w&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">version</span> = <span class="ruby-constant">Version</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>)
+    <span class="ruby-identifier">file</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">version</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;\n&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create-method -->
+
+    
+      <div id="method-i-read" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">read</span><span
+            class="method-args">(dir = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Read the version file and return the parsed version data</p>
+          
+          
+
+          
+          <div class="method-source-code" id="read-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/file.rb, line 49</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">read</span>(<span class="ruby-identifier">dir</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">path</span> = <span class="ruby-identifier">find_file</span>(<span class="ruby-identifier">dir</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">path</span>)
+    <span class="ruby-comment"># Read</span>
+    <span class="ruby-identifier">verdata</span> = <span class="ruby-constant">Version</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">verdata</span>.<span class="ruby-identifier">parse</span> <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">path</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">VersionFileError</span>, <span class="ruby-node">&quot;unable to read #{path}&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">verdata</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- read-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- read-method -->
+
+    
+      <div id="method-i-write" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write</span><span
+            class="method-args">(version, dir = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Write the specfied version into the version file</p>
+          
+          
+
+          
+          <div class="method-source-code" id="write-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/file.rb, line 64</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write</span>(<span class="ruby-identifier">version</span>, <span class="ruby-identifier">dir</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">path</span> = <span class="ruby-identifier">find_file</span>(<span class="ruby-identifier">dir</span>)
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">version</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Version</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">ParameterError</span>, <span class="ruby-node">&quot;invalid version #{version}&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">writable?</span>(<span class="ruby-identifier">path</span>)
+    <span class="ruby-comment"># Write</span>
+    <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">version</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;\n&quot;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">VersionFileError</span>, <span class="ruby-node">&quot;unable to write #{path}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- write-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- write-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class VMLib::Version - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/vmlib/base.rb
+    <li>lib/vmlib/bump.rb
+    <li>lib/vmlib/class.rb
+    <li>lib/vmlib/compare.rb
+    <li>lib/vmlib/format.rb
+    <li>lib/vmlib/parse.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">Object
+  
+</nav>
+
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-compare_build">::compare_build</a>
+    
+    <li ><a href="#method-c-enable_prerelease_parser">::enable_prerelease_parser</a>
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-3C-3D-3E">#&lt;=&gt;</a>
+    
+    <li ><a href="#method-i-build">#build</a>
+    
+    <li ><a href="#method-i-build-3D">#build=</a>
+    
+    <li ><a href="#method-i-bump_major">#bump_major</a>
+    
+    <li ><a href="#method-i-bump_minor">#bump_minor</a>
+    
+    <li ><a href="#method-i-bump_patch">#bump_patch</a>
+    
+    <li ><a href="#method-i-bump_prerelease">#bump_prerelease</a>
+    
+    <li ><a href="#method-i-bump_release_type">#bump_release_type</a>
+    
+    <li ><a href="#method-i-format">#format</a>
+    
+    <li ><a href="#method-i-inspect">#inspect</a>
+    
+    <li ><a href="#method-i-parse">#parse</a>
+    
+    <li ><a href="#method-i-prerelease">#prerelease</a>
+    
+    <li ><a href="#method-i-prerelease-3D">#prerelease=</a>
+    
+    <li ><a href="#method-i-reset">#reset</a>
+    
+    <li ><a href="#method-i-tag">#tag</a>
+    
+    <li ><a href="#method-i-to_s">#to_s</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="../README_md.html">README</a>
+  
+    <li class="file"><a href="../Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="../Version.html">Version</a>
+  
+    <li class="file"><a href="../doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="../lib/vmlib/issue_txt.html">issue</a>
+  
+    <li class="file"><a href="../vmlib_gemspec.html">vmlib.gemspec</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../VMLib.html">VMLib</a>
+  
+    <li><a href="../VMLib/CommandError.html">VMLib::CommandError</a>
+  
+    <li><a href="../VMLib/Errors.html">VMLib::Errors</a>
+  
+    <li><a href="../VMLib/Errors/AssignError.html">VMLib::Errors::AssignError</a>
+  
+    <li><a href="../VMLib/Errors/BumpError.html">VMLib::Errors::BumpError</a>
+  
+    <li><a href="../VMLib/Errors/InitError.html">VMLib::Errors::InitError</a>
+  
+    <li><a href="../VMLib/Errors/NoVersionError.html">VMLib::Errors::NoVersionError</a>
+  
+    <li><a href="../VMLib/Errors/ParameterError.html">VMLib::Errors::ParameterError</a>
+  
+    <li><a href="../VMLib/Errors/ParseError.html">VMLib::Errors::ParseError</a>
+  
+    <li><a href="../VMLib/Errors/PathError.html">VMLib::Errors::PathError</a>
+  
+    <li><a href="../VMLib/Errors/VMLibError.html">VMLib::Errors::VMLibError</a>
+  
+    <li><a href="../VMLib/Errors/VersionFileError.html">VMLib::Errors::VersionFileError</a>
+  
+    <li><a href="../VMLib/File.html">VMLib::File</a>
+  
+    <li><a href="../VMLib/Source.html">VMLib::Source</a>
+  
+    <li><a href="../VMLib/Version.html">VMLib::Version</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class VMLib::Version</h1>
+
+  <div id="description" class="description">
+    
+<p>This is the primary version number class for the version manager library</p>
+
+<p>This is the primary version number class for the version manager library</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="NAME_REGEX">NAME_REGEX
+        
+        <dd class="description"><p>Regular expression format to retrieve the name. Names may consist of any
+combination of any alphanumeric character, underscores and hyphens.</p>
+        
+      
+        <dt id="SPECIAL_REGEX">SPECIAL_REGEX
+        
+        <dd class="description"><p>Regular expression format to understand the release and build formats.</p>
+
+<p>Acceptable formats:</p>
+
+<pre>alpha.1.4
+beta.1.4
+6.2.8
+1
+build-256.2013-01-04T16-40Z</pre>
+
+<p>These fields consist of dot-separated identifiers, and these identifiers
+may contain only alphanumeric characters and hyphens.</p>
+
+<p>Fields consisting of only digits will be interpreted as numeric and leading
+zeroes will be stripped.</p>
+        
+      
+        <dt id="TAG_FORMAT">TAG_FORMAT
+        
+        <dd class="description"><p>Default tag format for version control systems</p>
+        
+      
+        <dt id="VER_REGEX">VER_REGEX
+        
+        <dd class="description"><p>Regular expression to understand the version format.</p>
+
+<p>Acceptable formats:</p>
+
+<pre>1.078.2
+v1.30.4908
+version 2.4.875</pre>
+
+<p>Leading zeroes will be stripped in any numeric field, therefore, the
+version 1.078.2 would be treated the same as 1.78.2</p>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-major" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">major</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The major version number</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-minor" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">minor</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The minor version number</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-name" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">name</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The program or project name</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-patch" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">patch</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The patch version number</p>
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-compare_build" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">compare_build</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Specify whether to compare build metadata or not between two versions</p>
+          
+          
+
+          
+          <div class="method-source-code" id="compare_build-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/class.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">compare_build</span>
+  <span class="ruby-identifier">@@compare_build</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- compare_build-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- compare_build-method -->
+
+    
+      <div id="method-c-enable_prerelease_parser" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">enable_prerelease_parser</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Specify whether to use the prerelease parser or not. Disabling this will
+cause an error to be thrown in the following cases:</p>
+<ul><li>
+<p>Calling the <a
+href="Version.html#method-i-bump_release_type">#bump_release_type</a>
+functionality</p>
+</li><li>
+<p>Calling <a
+href="Version.html#method-i-bump_prerelease">#bump_prerelease</a> with a
+non-numeric identifier at the end</p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="enable_prerelease_parser-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/class.rb, line 50</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">enable_prerelease_parser</span>
+  <span class="ruby-identifier">@@enable_prerelease_parser</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- enable_prerelease_parser-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- enable_prerelease_parser-method -->
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(name = '', major = 0, minor = 0, patch = 0, prerelease = '0', build = '')</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Create a new version instance and set it to the specified parameters</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/base.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span> = <span class="ruby-string">&#39;&#39;</span>, <span class="ruby-identifier">major</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">minor</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">patch</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">prerelease</span> = <span class="ruby-string">&#39;0&#39;</span>, <span class="ruby-identifier">build</span> = <span class="ruby-string">&#39;&#39;</span>)
+  <span class="ruby-identifier">reset</span>
+  <span class="ruby-identifier">set_name</span> <span class="ruby-identifier">name</span>
+  <span class="ruby-identifier">set_major</span> <span class="ruby-identifier">major</span>
+  <span class="ruby-identifier">set_minor</span> <span class="ruby-identifier">minor</span>
+  <span class="ruby-identifier">set_patch</span> <span class="ruby-identifier">patch</span>
+  <span class="ruby-identifier">set_prerelease</span> <span class="ruby-identifier">prerelease</span>
+  <span class="ruby-identifier">set_build</span> <span class="ruby-identifier">build</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-3C-3D-3E" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">&lt;=&gt;</span><span
+            class="method-args">(other)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Compare two version structures</p>
+          
+          
+
+          
+          <div class="method-source-code" id="3C-3D-3E-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/compare.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">&lt;=&gt;</span> (<span class="ruby-identifier">other</span>)
+  <span class="ruby-comment"># Check major version</span>
+  <span class="ruby-identifier">cmp</span> = (<span class="ruby-ivar">@major</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">major</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">cmp</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">cmp</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+
+  <span class="ruby-comment"># Check minor version</span>
+  <span class="ruby-identifier">cmp</span> = (<span class="ruby-ivar">@minor</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">minor</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">cmp</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">cmp</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+
+  <span class="ruby-comment"># Check patch version</span>
+  <span class="ruby-identifier">cmp</span> = (<span class="ruby-ivar">@patch</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">patch</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">cmp</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">cmp</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+
+  <span class="ruby-comment"># Check prerelease arrays</span>
+  <span class="ruby-identifier">myown_pre</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">prerelease</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;.&#39;</span>)
+  <span class="ruby-identifier">convert_to_integer</span>(<span class="ruby-identifier">myown_pre</span>)
+  <span class="ruby-identifier">other_pre</span> = <span class="ruby-identifier">other</span>.<span class="ruby-identifier">prerelease</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;.&#39;</span>)
+  <span class="ruby-identifier">convert_to_integer</span>(<span class="ruby-identifier">other_pre</span>)
+  <span class="ruby-identifier">cmp</span> = <span class="ruby-identifier">compare_arrays</span>(<span class="ruby-identifier">myown_pre</span>, <span class="ruby-identifier">other_pre</span>)
+  
+  <span class="ruby-comment"># Make sure that the prerelease is compared correctly</span>
+  <span class="ruby-identifier">cmp</span> = <span class="ruby-value">1</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">cmp</span> <span class="ruby-operator">==</span> <span class="ruby-value">-1</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">myown_pre</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+  <span class="ruby-identifier">cmp</span> = <span class="ruby-value">-1</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">cmp</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">other_pre</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">cmp</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">cmp</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+
+  <span class="ruby-comment"># Check build arrays, but only if specified</span>
+  <span class="ruby-comment"># As with the parser, leave identifiers as strings so they can</span>
+  <span class="ruby-comment"># be compared lexically</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-identifier">@@compare_build</span>)
+    <span class="ruby-identifier">myown_bld</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">build</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;.&#39;</span>)
+    <span class="ruby-identifier">other_bld</span> = <span class="ruby-identifier">other</span>.<span class="ruby-identifier">build</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;.&#39;</span>)
+    <span class="ruby-identifier">cmp</span> = <span class="ruby-identifier">compare_arrays</span>(<span class="ruby-identifier">myown_bld</span>, <span class="ruby-identifier">other_bld</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">cmp</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">cmp</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- 3C-3D-3E-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- 3C-3D-3E-method -->
+
+    
+      <div id="method-i-build" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">build</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Get the build information</p>
+          
+          
+
+          
+          <div class="method-source-code" id="build-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/base.rb, line 191</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">build</span>
+  <span class="ruby-identifier">format</span> <span class="ruby-string">&#39;%b&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- build-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- build-method -->
+
+    
+      <div id="method-i-build-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">build=</span><span
+            class="method-args">(build)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Set the build information</p>
+          
+          
+
+          
+          <div class="method-source-code" id="build-3D-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/base.rb, line 196</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">build=</span>(<span class="ruby-identifier">build</span>)
+  <span class="ruby-identifier">set_build</span> <span class="ruby-identifier">build</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- build-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- build-3D-method -->
+
+    
+      <div id="method-i-bump_major" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bump_major</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Bump the major release by 1 and reset the minor and patch releases to 0.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="bump_major-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/bump.rb, line 16</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bump_major</span>
+  <span class="ruby-ivar">@major</span> = <span class="ruby-ivar">@major</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+  <span class="ruby-ivar">@minor</span> = <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@patch</span> = <span class="ruby-value">0</span>
+
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- bump_major-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- bump_major-method -->
+
+    
+      <div id="method-i-bump_minor" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bump_minor</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Bump the minor release by 1 and reset the patch release to 0</p>
+          
+          
+
+          
+          <div class="method-source-code" id="bump_minor-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/bump.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bump_minor</span>
+  <span class="ruby-ivar">@minor</span> = <span class="ruby-ivar">@minor</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+  <span class="ruby-ivar">@patch</span> = <span class="ruby-value">0</span>
+
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- bump_minor-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- bump_minor-method -->
+
+    
+      <div id="method-i-bump_patch" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bump_patch</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Bump the patch release by 1</p>
+          
+          
+
+          
+          <div class="method-source-code" id="bump_patch-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/bump.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bump_patch</span>
+  <span class="ruby-ivar">@patch</span> = <span class="ruby-ivar">@patch</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- bump_patch-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- bump_patch-method -->
+
+    
+      <div id="method-i-bump_prerelease" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bump_prerelease</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Bump the prerelease version by 1</p>
+          
+          
+
+          
+          <div class="method-source-code" id="bump_prerelease-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/bump.rb, line 40</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bump_prerelease</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-ivar">@reltype</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_dev</span>
+    <span class="ruby-ivar">@devnum</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_alpha</span>
+    <span class="ruby-ivar">@alphanum</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_beta</span>
+    <span class="ruby-ivar">@betanum</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_rc</span>
+    <span class="ruby-ivar">@rcnum</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_final</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">BumpError</span>, <span class="ruby-string">&quot;cannot bump prerelease for a final version&quot;</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_custom</span>
+    <span class="ruby-identifier">lastfield</span> = <span class="ruby-ivar">@relcustom</span>.<span class="ruby-identifier">pop</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">lastfield</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Integer</span>
+      <span class="ruby-ivar">@relcustom</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">lastfield</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@relcustom</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">lastfield</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">BumpError</span>, <span class="ruby-string">&quot;cannot bump a non-numeric prerelease field&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- bump_prerelease-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- bump_prerelease-method -->
+
+    
+      <div id="method-i-bump_release_type" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bump_release_type</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Bump the prerelease type</p>
+          
+          
+
+          
+          <div class="method-source-code" id="bump_release_type-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/bump.rb, line 64</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bump_release_type</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-ivar">@reltype</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_dev</span> <span class="ruby-comment"># development -&gt; alpha</span>
+    <span class="ruby-ivar">@reltype</span> = <span class="ruby-value">:rel_type_alpha</span>
+    <span class="ruby-ivar">@alphanum</span> = <span class="ruby-value">1</span>
+
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_alpha</span> <span class="ruby-comment"># alpha -&gt; beta</span>
+    <span class="ruby-ivar">@reltype</span> = <span class="ruby-value">:rel_type_beta</span>
+    <span class="ruby-ivar">@betanum</span> = <span class="ruby-value">1</span>
+
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_beta</span> <span class="ruby-comment"># beta -&gt; rc</span>
+    <span class="ruby-ivar">@reltype</span> = <span class="ruby-value">:rel_type_rc</span>
+    <span class="ruby-ivar">@rcnum</span> = <span class="ruby-value">1</span>
+
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_rc</span> <span class="ruby-comment"># rc -&gt; final</span>
+    <span class="ruby-ivar">@reltype</span> = <span class="ruby-value">:rel_type_final</span>
+
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_final</span> <span class="ruby-comment"># ERROR!</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">BumpError</span>, <span class="ruby-string">&quot;cannot bump from final version&quot;</span>
+
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_custom</span> <span class="ruby-comment"># ERROR!</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">BumpError</span>, <span class="ruby-string">&quot;cannot bump from custom prerelease&quot;</span>
+
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- bump_release_type-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- bump_release_type-method -->
+
+    
+      <div id="method-i-format" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">format</span><span
+            class="method-args">(fstr)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Display the version in the specified format Input: Format string</p>
+
+<pre>%n - name
+%M - major version number
+%m - minor version number
+%p - patch number
+%r - prerelease
+%b - build number</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="format-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/format.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">format</span>(<span class="ruby-identifier">fstr</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@name</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">fstr</span> = <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;%n&#39;</span>, <span class="ruby-string">&#39;&#39;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">fstr</span> = <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;%n&#39;</span>, <span class="ruby-ivar">@name</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39; &#39;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Match the major version</span>
+  <span class="ruby-identifier">match</span> = <span class="ruby-regexp">/%(\d*)M/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">fstr</span>)
+  <span class="ruby-identifier">fstr</span> = <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/%(\d*)M/</span>, <span class="ruby-node">&quot;%0#{$1}d&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@major</span>)
+
+  <span class="ruby-comment"># Match the minor version</span>
+  <span class="ruby-identifier">match</span> = <span class="ruby-regexp">/%(\d*)m/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">fstr</span>)
+  <span class="ruby-identifier">fstr</span> = <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/%(\d*)m/</span>, <span class="ruby-node">&quot;%0#{$1}d&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@minor</span>)
+
+  <span class="ruby-comment"># Match the patch version</span>
+  <span class="ruby-identifier">match</span> = <span class="ruby-regexp">/%(\d*)p/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">fstr</span>)
+  <span class="ruby-identifier">fstr</span> = <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/%(\d*)p/</span>, <span class="ruby-node">&quot;%0#{$1}d&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@patch</span>)
+
+  <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@reltype</span> <span class="ruby-operator">==</span> <span class="ruby-value">:rel_type_final</span>) <span class="ruby-keyword">or</span>
+     (<span class="ruby-ivar">@reltype</span> <span class="ruby-operator">==</span> <span class="ruby-value">:rel_type_custom</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@relcustom</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>)
+    <span class="ruby-identifier">fstr</span> = <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;%r&#39;</span>, <span class="ruby-string">&#39;&#39;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">fstr</span> = <span class="ruby-keyword">case</span> <span class="ruby-ivar">@reltype</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_dev</span>
+        <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;%r&#39;</span>, <span class="ruby-node">&quot;-#{@devnum}&quot;</span>)
+      <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_alpha</span>
+        <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;%r&#39;</span>, <span class="ruby-node">&quot;-a.#{@alphanum}&quot;</span>)
+      <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_beta</span>
+        <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;%r&#39;</span>, <span class="ruby-node">&quot;-b.#{@betanum}&quot;</span>)
+      <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_rc</span>
+        <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;%r&#39;</span>, <span class="ruby-node">&quot;-rc.#{@rcnum}&quot;</span>)
+      <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_custom</span>
+        <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;%r&#39;</span>, <span class="ruby-string">&#39;-&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@relcustom</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;.&#39;</span>))
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;%r&#39;</span>, <span class="ruby-string">&#39;&#39;</span>)
+      <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@buildtype</span> <span class="ruby-operator">==</span> <span class="ruby-value">:bld_type_final</span>) <span class="ruby-keyword">or</span>
+     (<span class="ruby-ivar">@buildtype</span> <span class="ruby-operator">==</span> <span class="ruby-value">:bld_type_custom</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@buildcustom</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>)
+    <span class="ruby-identifier">fstr</span> = <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;%b&#39;</span>, <span class="ruby-string">&#39;&#39;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">fstr</span> = <span class="ruby-keyword">case</span> <span class="ruby-ivar">@buildtype</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-value">:bld_type_custom</span>
+        <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;%b&#39;</span>, <span class="ruby-string">&#39;+&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@buildcustom</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;.&#39;</span>))
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">fstr</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;%b&#39;</span>, <span class="ruby-string">&#39;&#39;</span>)
+      <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">fstr</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- format-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- format-method -->
+
+    
+      <div id="method-i-inspect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">inspect</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Inspect the version object</p>
+          
+          
+
+          
+          <div class="method-source-code" id="inspect-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/base.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
+  <span class="ruby-identifier">str</span> = <span class="ruby-node">&quot;#&lt;#{self.class}:&quot;</span>
+  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;0x%016x&quot;</span> <span class="ruby-operator">%</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">object_id</span> <span class="ruby-operator">*</span> <span class="ruby-value">2</span>)
+  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; @name=&#39;#{@name}&#39;&quot;</span>
+  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; @major=#{@major}&quot;</span>
+  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; @minor=#{@minor}&quot;</span>
+  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; @patch=#{@patch}&quot;</span>
+
+  <span class="ruby-keyword">case</span> <span class="ruby-ivar">@reltype</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_dev</span>
+    <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; @devnum=#{@devnum}&quot;</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_alpha</span>
+    <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; @alphanum=#{@alphanum}&quot;</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_beta</span>
+    <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; @betanum=#{@betanum}&quot;</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_rc</span>
+    <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; @rcnum=#{@rcnum}&quot;</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:rel_type_custom</span>
+    <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; @prerelease=#{@relcustom.inspect}&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">case</span> <span class="ruby-ivar">@buildtype</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:bld_type_custom</span>
+    <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; @build=#{@buildcustom.inspect}&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;&gt;&quot;</span>
+
+  <span class="ruby-identifier">str</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- inspect-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- inspect-method -->
+
+    
+      <div id="method-i-parse" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse</span><span
+            class="method-args">(ver)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Parse a string containing the project name and version number into its
+individual components</p>
+          
+          
+
+          
+          <div class="method-source-code" id="parse-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/parse.rb, line 158</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse</span>(<span class="ruby-identifier">ver</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ver</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">String</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">ParameterError</span>, <span class="ruby-string">&quot;expected a string to be parsed&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Chop off any trailing newlines</span>
+  <span class="ruby-identifier">ver</span>.<span class="ruby-identifier">chomp!</span>
+
+  <span class="ruby-comment"># Match the name</span>
+  <span class="ruby-identifier">match</span> = <span class="ruby-constant">NAME_REGEX</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">ver</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">match</span>
+    <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">match</span>[<span class="ruby-value">:name</span>]
+    <span class="ruby-identifier">ver</span> = <span class="ruby-identifier">ver</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-constant">NAME_REGEX</span>, <span class="ruby-string">&#39;&#39;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># Sometimes we may not get a name to be parsed. If that&#39;s the case</span>
+    <span class="ruby-comment"># then ensure we clear the name field.</span>
+    <span class="ruby-ivar">@name</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Match the major, minor and patch versions</span>
+  <span class="ruby-identifier">match</span> = <span class="ruby-constant">VER_REGEX</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">ver</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">match</span>
+    <span class="ruby-ivar">@major</span> = <span class="ruby-identifier">match</span>[<span class="ruby-value">:major</span>].<span class="ruby-identifier">to_i</span>
+    <span class="ruby-ivar">@minor</span> = <span class="ruby-identifier">match</span>[<span class="ruby-value">:minor</span>].<span class="ruby-identifier">to_i</span>
+    <span class="ruby-ivar">@patch</span> = <span class="ruby-identifier">match</span>[<span class="ruby-value">:patch</span>].<span class="ruby-identifier">to_i</span>
+    <span class="ruby-identifier">ver</span> = <span class="ruby-identifier">ver</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-constant">VER_REGEX</span>, <span class="ruby-string">&#39;&#39;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">ParseError</span>, <span class="ruby-node">&quot;unrecognized version format &#39;#{ver}&#39;&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># See if we have a prerelease version (begins with a -)</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ver</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^-/</span>
+    <span class="ruby-identifier">ver</span> = <span class="ruby-identifier">ver</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">/^-/</span>, <span class="ruby-string">&#39;&#39;</span>)
+
+    <span class="ruby-identifier">match</span> = <span class="ruby-identifier">parse_release</span>(<span class="ruby-identifier">ver</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">match</span>
+      <span class="ruby-comment"># Delete the matched data</span>
+      <span class="ruby-identifier">ver</span> = <span class="ruby-identifier">ver</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-constant">SPECIAL_REGEX</span>, <span class="ruby-string">&#39;&#39;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span> <span class="ruby-comment"># if ver !~ /^-/</span>
+    <span class="ruby-ivar">@reltype</span> = <span class="ruby-value">:rel_type_final</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># See if we have a build version (begins with a +)</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ver</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\+/</span>
+    <span class="ruby-identifier">ver</span> = <span class="ruby-identifier">ver</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">/^\+/</span>, <span class="ruby-string">&#39;&#39;</span>)
+
+    <span class="ruby-identifier">match</span> = <span class="ruby-identifier">parse_build</span>(<span class="ruby-identifier">ver</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">match</span>
+      <span class="ruby-comment"># Delete the matched data</span>
+      <span class="ruby-identifier">ver</span> = <span class="ruby-identifier">ver</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-constant">SPECIAL_REGEX</span>, <span class="ruby-string">&#39;&#39;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span> <span class="ruby-comment"># if ver !~ /^\+/</span>
+    <span class="ruby-ivar">@buildtype</span> = <span class="ruby-value">:bld_type_final</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># By now, ver should be empty. Raise an error if this is not the case</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ver</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">ParseError</span>, <span class="ruby-node">&quot;unrecognized version format &#39;#{ver}&#39;&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- parse-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- parse-method -->
+
+    
+      <div id="method-i-prerelease" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">prerelease</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Get the prerelease information</p>
+          
+          
+
+          
+          <div class="method-source-code" id="prerelease-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/base.rb, line 165</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">prerelease</span> <span class="ruby-comment">#:attr:</span>
+  <span class="ruby-identifier">format</span> <span class="ruby-string">&#39;%r&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- prerelease-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- prerelease-method -->
+
+    
+      <div id="method-i-prerelease-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">prerelease=</span><span
+            class="method-args">(prerelease)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Set the prerelease information</p>
+          
+          
+
+          
+          <div class="method-source-code" id="prerelease-3D-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/base.rb, line 170</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">prerelease=</span>(<span class="ruby-identifier">prerelease</span>)
+  <span class="ruby-identifier">set_prerelease</span> <span class="ruby-identifier">prerelease</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- prerelease-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- prerelease-3D-method -->
+
+    
+      <div id="method-i-reset" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reset</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Reset the version number to 0.0.0-0</p>
+          
+          
+
+          
+          <div class="method-source-code" id="reset-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/base.rb, line 16</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reset</span>
+  <span class="ruby-ivar">@name</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-ivar">@major</span> = <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@minor</span> = <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@patch</span> = <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@reltype</span> = <span class="ruby-value">:rel_type_dev</span>
+  <span class="ruby-ivar">@devnum</span> = <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@alphanum</span> = <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@betanum</span> = <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@rcnum</span> = <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@relcustom</span> = []
+  <span class="ruby-ivar">@buildtype</span> = <span class="ruby-value">:bld_type_final</span>
+  <span class="ruby-ivar">@buildcustom</span> = []
+
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- reset-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reset-method -->
+
+    
+      <div id="method-i-tag" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">tag</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Display a version tag suitable for use in tagging releases in the
+user&#39;s version control system</p>
+          
+          
+
+          
+          <div class="method-source-code" id="tag-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/format.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">tag</span>
+  <span class="ruby-identifier">format</span> <span class="ruby-constant">TAG_FORMAT</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- tag-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- tag-method -->
+
+    
+      <div id="method-i-to_s" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_s</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Display the version information as a string</p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_s-source">
+            <pre><span class="ruby-comment"># File lib/vmlib/format.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
+  <span class="ruby-identifier">format</span> <span class="ruby-string">&quot;%n%M.%m.%p%r%b&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_s-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_s-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

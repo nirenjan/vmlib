@@ -1,0 +1,25 @@
+Sun, 04 May 2014 23:07:09 -0700
+./bin/vmlib	Sun, 04 May 2014 23:07:05 -0700
+./doc/created.rid	Sun, 04 May 2014 23:07:09 -0700
+./Gemfile	Sun, 04 May 2014 23:07:05 -0700
+./lib/vmlib/base.rb	Sun, 04 May 2014 23:07:05 -0700
+./lib/vmlib/bump.rb	Sun, 04 May 2014 23:07:05 -0700
+./lib/vmlib/class.rb	Sun, 04 May 2014 23:07:05 -0700
+./lib/vmlib/compare.rb	Sun, 04 May 2014 23:07:05 -0700
+./lib/vmlib/errors.rb	Sun, 04 May 2014 23:07:05 -0700
+./lib/vmlib/file.rb	Sun, 04 May 2014 23:07:05 -0700
+./lib/vmlib/format.rb	Sun, 04 May 2014 23:07:05 -0700
+./lib/vmlib/issue.txt	Sun, 04 May 2014 23:06:59 -0700
+./lib/vmlib/parse.rb	Sun, 04 May 2014 23:07:05 -0700
+./lib/vmlib/source.rb	Sun, 04 May 2014 23:07:05 -0700
+./lib/vmlib/version.rb	Sun, 04 May 2014 23:07:05 -0700
+./lib/vmlib.rb	Sun, 04 May 2014 23:07:05 -0700
+./Rakefile	Sun, 04 May 2014 23:07:05 -0700
+./README.md	Sun, 04 May 2014 23:06:59 -0700
+./test/test_version_basic.rb	Sun, 04 May 2014 23:07:05 -0700
+./test/test_version_bump.rb	Sun, 04 May 2014 23:07:05 -0700
+./test/test_version_compare.rb	Sun, 04 May 2014 23:07:05 -0700
+./test/test_version_format.rb	Sun, 04 May 2014 23:07:05 -0700
+./test/test_version_parse.rb	Sun, 04 May 2014 23:07:05 -0700
+./Version	Sun, 04 May 2014 23:07:05 -0700
+./vmlib.gemspec	Sun, 04 May 2014 23:07:05 -0700

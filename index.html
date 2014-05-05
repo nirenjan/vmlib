@@ -1,1 +1,80 @@
-My Page
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>VMLib by nirenjan</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>VMLib</h1>
+        <p>Version Manager library for <a href="http://semver.org/">Semantic Versioning</a></p>
+
+        <p class="view"><a href="https://github.com/nirenjan/vmlib">View the Project on GitHub <small>nirenjan/vmlib</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/nirenjan/vmlib/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/nirenjan/vmlib/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/nirenjan/vmlib">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="vmlib" class="anchor" href="#vmlib"><span class="octicon octicon-link"></span></a>Version Manger Library for SemVer</h1>
+
+<h2>
+<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
+
+<p>VMLib is a Ruby gem to manage Semantic Versioning of projects. The gem
+consists of a library and a command line utility to version a folder and all
+subfolders.</p>
+
+<h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Supports Semantic versioning as of the 2.0.0-rc1 specification. Development
+version supports the final 2.0.0 specification.</li>
+<li>Prerelease parser that supports development releases (1.0.0-1, 1.0.0-2, etc.),
+alpha releases (1.0.0-a.1, 1.0.0-alpha.2), beta releases (1.0.0-b.1,
+1.0.0-beta.2), and release candidates (1.0.0-rc.1, 1.0.0-rc.2). The prerelease
+parser can be disabled globally to allow the user to specify their own
+prerelease format. Comparision is still compliant with the SemVer spec.</li>
+<li>Compare two versions using the spaceship operator (<code>&lt;=&gt;</code>).</li>
+<li>Supports a project name and multiple version formats. Eg. <code>vmlib 1.0.0</code>, <code>vmlib
+v1.0.0</code>, <code>version 1.0.0</code>, <code>vmlib version 1.0.0</code>.</li>
+<li>Built in methods to bump portions of the version number.</li>
+<li>Support for walking a source tree to update all references to the version
+number. (experimental)</li>
+</ul>
+
+<h2>
+<a name="known-issues" class="anchor" href="#known-issues"><span class="octicon octicon-link"></span></a>Known Issues</h2>
+
+<p>The gem does not support creating separate versions of components in subfolders
+of an already versioned project folder. The <code>Version</code> file can be created
+manually to work around this limitation.</p>
+
+<h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
+
+<p>See <a href="doc/index.html">Documentation</a> for VMLib v1.1.1</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/nirenjan">nirenjan</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
